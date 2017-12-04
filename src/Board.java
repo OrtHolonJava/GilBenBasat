@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Board extends JPanel {
     final static int TILE_LENGTH = 115;
     Piece[][] _board = new Piece[8][8];
-    int _selectedTile = -1;
+    int _selectedTile = -2;
     public Board () {
         BoardInitializer.initialize(_board);
         addMouseListener(new MouseAdapter() {
