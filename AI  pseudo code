@@ -1,5 +1,5 @@
 getNextMove(game):
-	depth = 4 // different ai levels will have different initial depths
+	depth = 4 // different ai levels would have different initial depths
 	return minimax(game, depth)
 
 minimax(game, depth): // gonna add alpha-beta puring soon and maybe combine the mini and maxi functions to a one.
