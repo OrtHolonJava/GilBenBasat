@@ -1,7 +1,7 @@
 getNextMove(game):
 	return minimax(game, depth)
 
-minimax(game, depth):
+minimax(game, depth): // gonna add alpha-beta puring soon and maybe combine the mini and maxi functions to a one.
 	if depth = 0:
 		raise error("can't find move with depth = 0")
 	max = -oo
