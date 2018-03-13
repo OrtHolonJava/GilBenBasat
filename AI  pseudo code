@@ -4,13 +4,13 @@ class AI_Example:
 		this.evaluate_func = evaluate_func
 
 	getNextMove(game):
-		max = -∞
+		maxValue = -∞
 		for move in game.getPossibleMoves():
 			game.makeMove(move)
-			score = minimax(game, this.depth - 1, -∞, +∞, false)
+			value = minimax(game, this.depth - 1, -∞, +∞, false)
 			game.undo()
-			if score > max:
-				max = score
+			if value > maxValue:
+				maxValue = value
 				bestMove = move
 		return bestMove
 
@@ -21,16 +21,16 @@ class AI_Example:
 		temp = isMaximising ? -∞ : +∞
 		for move in game.getPossibleMoves():
 			game.makeMove(move)
-			score = minimax(game, depth - 1, !ismaximising)
+			value = minimax(game, depth - 1, !ismaximising)
 			game.undo()
 			if isMaximizing:
-				if score > temp:
-					temp = score
-				α = max(score, α)
+				if value > temp:
+					temp = value
+				α = max(value, α)
 			else:
-				if temp < score:
-					temp = score
-				β = min(score, β)
+				if temp < value:
+					temp = value
+				β = min(value, β)
 			if α >= β:
-				break
+				break // stops the search for this tree because it's redundant
 		return temp
