@@ -1,36 +1,31 @@
-class AI_Example:
-	init(depth, evaluate_func):
-		this.depth = depth
-		this.evaluate_func = evaluate_func
+getNextMove(game, depth):
+	maxValue = -∞
+	for move in game.getPossibleMoves():
+		game.makeMove(move)
+		value = minimax(game, depth - 1, -∞, +∞, false)
+		game.undo()
+		if value > maxValue:
+			maxValue = value
+			bestMove = move
+	return bestMove
 
-	getNextMove(game):
-		maxValue = -∞
-		for move in game.getPossibleMoves():
-			game.makeMove(move)
-			value = minimax(game, this.depth - 1, -∞, +∞, false)
-			game.undo()
-			if value > maxValue:
-				maxValue = value
-				bestMove = move
-		return bestMove
-
-	minimax(game, depth, α, β, isMaximising): // minimax with alpha-beta puring
-		if depth = 0:
-			boardEvaluation = this.evaluate_func(game.getBoard())
-			return isMaximising ? boardEvaluation : -boardEvaluation
-		temp = isMaximising ? -∞ : +∞
-		for move in game.getPossibleMoves():
-			game.makeMove(move)
-			value = minimax(game, depth - 1, !ismaximising)
-			game.undo()
-			if isMaximizing:
-				if value > temp:
-					temp = value
-				α = max(value, α)
-			else:
-				if temp < value:
-					temp = value
-				β = min(value, β)
-			if α >= β:
-				break // stops the search for this tree because it's redundant
-		return temp
+minimax(game, depth, α, β, isMaximising): // minimax with alpha-beta puring
+	if depth = 0:
+		boardEvaluation = this.evaluate_func(game.getBoard())
+		return isMaximising ? boardEvaluation : -boardEvaluation
+	temp = isMaximising ? -∞ : +∞
+	for move in game.getPossibleMoves():
+		game.makeMove(move)
+		value = minimax(game, depth - 1, !ismaximising)
+		game.undo()
+		if isMaximizing:
+			if value > temp:
+				temp = value
+			α = max(value, α)
+		else:
+			if temp < value:
+				temp = value
+			β = min(value, β)
+		if α >= β:
+			break // stops the search for this tree because it's redundant
+	return temp
