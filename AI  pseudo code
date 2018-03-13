@@ -3,7 +3,7 @@ class AI_Example:
 		this.depth = depth
 		this.evaluate_func = evaluate_func
 
-	getNextMove(game): // gonna add alpha-beta puring soon and maybe combine the mini and maxi functions.
+	getNextMove(game):
 		max = -∞
 		for move in game.getPossibleMoves():
 			game.makeMove(move)
@@ -14,7 +14,7 @@ class AI_Example:
 				bestMove = move
 		return bestMove
 
-	minimax(game, depth, α, β, isMaximising):
+	minimax(game, depth, α, β, isMaximising): // minimax with alpha-beta puring
 		if depth = 0:
 			boardEvaluation = this.evaluate_func(game.getBoard())
 			return isMaximising ? boardEvaluation : -boardEvaluation
