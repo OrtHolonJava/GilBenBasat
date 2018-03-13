@@ -1,43 +1,48 @@
-getNextMove(game):
-	depth = 4 // different ai levels would have different initial depths
-	return minimax(game, depth)
+class AI_Example:
+	init(depth, evaluate_func):
+		this.depth = depth
+		this.evaluate_func = evaluate_func
+	
+	getNextMove(game):
+		depth = 4 // different ai levels would have different initial depths
+		return minimax(game, depth)
 
-minimax(game, depth): // gonna add alpha-beta puring soon and maybe combine the mini and maxi functions.
-	if depth = 0:
-		raise error("can't find move with depth = 0")
-	max = -oo
-	for move in game.getPossibleMoves():
-		game.makeMove(move)
-		score = mini(game, depth - 1)
-		game.undo()
-		if score > max:
-			max = score
-			bestMove = move
-	return bestMove
+	minimax(game, depth): // gonna add alpha-beta puring soon and maybe combine the mini and maxi functions.
+		if depth = 0:
+			raise error("can't find move with depth = 0")
+		max = -oo
+		for move in game.getPossibleMoves():
+			game.makeMove(move)
+			score = mini(game, depth - 1)
+			game.undo()
+			if score > max:
+				max = score
+				bestMove = move
+		return bestMove
 
-mini(game, depth):
-	if depth = 0:
-		return -evaluate(game.getBoard())
-	min = oo
-	for move in game.getPossibleMoves():
-		game.makeMove(move)
-		score = maxi(depth - 1)
-		game.undo()
-		if score < min:
-			min = score
+	mini(game, depth):
+		if depth = 0:
+			return -evaluate(game.getBoard())
+		min = oo
+		for move in game.getPossibleMoves():
+			game.makeMove(move)
+			score = maxi(depth - 1)
+			game.undo()
+			if score < min:
+				min = score
 		return min
 
-maxi(game, depth):
-	if depth = 0:
-		return evaluate(game.getBoard())
-	max = -oo
-	for move in game.getPossibleMoves():
-		game.makeMove(move)
-		score = mini(depth - 1)
-		game.undo()
-		if score > max:
-			max = score
+	maxi(game, depth):
+		if depth = 0:
+			return evaluate(game.getBoard())
+		max = -oo
+		for move in game.getPossibleMoves():
+			game.makeMove(move)
+			score = mini(depth - 1)
+			game.undo()
+			if score > max:
+				max = score
 		return max
-evaluate(board):
-	score = ... // every ai will implement it differently
-	return score
+	evaluate(board):
+		score = ... // every ai will implement it differently
+		return score
