@@ -4,10 +4,9 @@ class AI_Example:
 		this.evaluate_func = evaluate_func
 	
 	getNextMove(game):
-		depth = 4 // different ai levels would have different initial depths
-		return minimax(game, depth)
+		return minimax(game, this.depth)
 
-	minimax(game, depth): // gonna add alpha-beta puring soon and maybe combine the mini and maxi functions.
+	getBestMove(game, depth): // gonna add alpha-beta puring soon and maybe combine the mini and maxi functions.
 		if depth = 0:
 			raise error("can't find move with depth = 0")
 		max = -oo
@@ -20,29 +19,19 @@ class AI_Example:
 				bestMove = move
 		return bestMove
 
-	mini(game, depth):
+	minimax(game, depth, isMaximising):
 		if depth = 0:
-			return -evaluate(game.getBoard())
-		min = oo
+			boardEvaluation = evaluate(game.getBoard())
+			return isMaximising ? boardEvaluation : -boardEvaluation
+		temp = isMaximising ? -oo : +oo
 		for move in game.getPossibleMoves():
 			game.makeMove(move)
-			score = maxi(depth - 1)
+			score = minimax(game, depth - 1, !ismaximising)
 			game.undo()
-			if score < min:
-				min = score
-		return min
-
-	maxi(game, depth):
-		if depth = 0:
-			return evaluate(game.getBoard())
-		max = -oo
-		for move in game.getPossibleMoves():
-			game.makeMove(move)
-			score = mini(depth - 1)
-			game.undo()
-			if score > max:
-				max = score
-		return max
+			if (isMaximising ? score : -score) > temp:
+				temp = score
+		return temp
+		
 	evaluate(board):
 		score = ... // every ai will implement it differently
 		return score
