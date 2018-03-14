@@ -1,3 +1,3 @@
 # GilBenBasat
-פרוייקט שח-מט בג'אבה
-![project uml](https://github.com/OrtHolonJava/GilBenBasat/blob/master/project-uml2.png)
+Chess Project:
+![project uml](https://github.com/OrtHolonJava/GilBenBasat/blob/master/Chess_Uml.pdf)
