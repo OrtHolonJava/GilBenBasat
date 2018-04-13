@@ -1,4 +1,4 @@
-package chess_game.game_states;
+package board_game.game_states;
 
 import board_game.GameState;
 

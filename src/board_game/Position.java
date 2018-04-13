@@ -27,4 +27,9 @@ public class Position {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        return _x * 256 + _y;
+    }
 }

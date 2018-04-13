@@ -1,17 +1,15 @@
+package chess_game;
+
 import board_game.GameState;
 import board_game.Move;
 import board_game.Position;
-import chess_game.ChessBoard;
-import chess_game.ChessGame;
 import chess_game.game_states.CheckMate;
-import chess_game.game_states.GameEnded;
-import chess_game.game_states.InGame;
+import board_game.game_states.InGame;
 import chess_game.game_states.Tie;
 import chess_game.moves.AttackMove;
 import chess_game.moves.CastleMove;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class UI {
@@ -20,21 +18,23 @@ public class UI {
     private static final String BLUE_BOLD = "\033[1;34m";   // BLUE
     private static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
     private static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-    public static final String RED_BACKGROUND = "\033[41m";    // RED
-    public static final String YELLOW_BACKGROUND_BRIGHT = "\033[0;103m";// YELLOW
-    public static final String PURPLE_BACKGROUND_BRIGHT = "\033[0;105m"; // PURPLE
+    private static final String RED_BACKGROUND = "\033[41m";    // RED
+    private static final String YELLOW_BACKGROUND_BRIGHT = "\033[0;103m";// YELLOW
+    private static final String PURPLE_BACKGROUND_BRIGHT = "\033[0;105m"; // PURPLE
 
     private static final String GAME_ENDED_FORMAT = "Game ended in a %s.";
     private static final String WINNER_ANNOUNCEMENT_FORMAT = "The winner is: %s.";
     private static final String GIVE_COMMAND_INPUT = "Give a command (type help for list of commands):";
-    private static ChessGame game;
-    public static void main(String[] args) {
-        game = new ChessGame();
-        GameState currentState = game.getGameState();
-        System.out.println("Game started!");
-        System.out.println("Current board:");
-        printBoard(game.getBoardRepresentation());
-        while (currentState instanceof InGame) {
+    private ChessGame _game;
+    private Move _returnedMove;
+
+    public UI(ChessGame game) {
+        _game = game;
+        _returnedMove = null;
+    }
+
+    public Move run() {
+        while (_returnedMove == null) {
             String command;
             System.out.println(GIVE_COMMAND_INPUT);
             Scanner reader = new Scanner(System.in);
@@ -42,17 +42,10 @@ public class UI {
             command = reader.nextLine();
             handleRequest(command);
         }
-
-        if (currentState instanceof CheckMate) {
-            System.out.println(String.format(GAME_ENDED_FORMAT, "Check-Mate"));
-            System.out.println(String.format(WINNER_ANNOUNCEMENT_FORMAT, ((CheckMate) currentState).getWinningAlliance()));
-        }
-        else if (currentState instanceof Tie) {
-            System.out.println(String.format(GAME_ENDED_FORMAT, "Tie"));
-        }
+        return _returnedMove;
     }
 
-    public static void handleRequest(String request)
+    private void handleRequest(String request)
     {
         request = request.toUpperCase().replaceAll(" ", "");
         String[] args = request.split("->");
@@ -79,27 +72,27 @@ public class UI {
             System.out.println("Error: unknown syntax.");
         }
     }
-    public static void handleMoveRequest(String pos1, String pos2)
+    private void handleMoveRequest(String pos1, String pos2)
     {
         Position source = convertStrToPos(pos1);
         Position destination = convertStrToPos(pos2);
-        for (Move move : game.getPossibleMoves()) {
+        for (Move move : _game.getPossibleMoves()) {
             if (move.getSource().equals(source) && move.getDestination().equals(destination)) {
-                game.makeMove(move);
+                _game.makeMove(move);
                 System.out.println("Current board:");
-                printBoard(game.getBoardRepresentation());
+                printBoard(_game.getBoardRepresentation());
                 return;
             }
         }
         System.out.println("Current board:");
-        printBoard(game.getBoardRepresentation());
+        printBoard(_game.getBoardRepresentation());
         System.out.println("Error: impossible move.");
     }
-    public static void handleShowPieceMovesRequest(String pos)
+    private void handleShowPieceMovesRequest(String pos)
     {
         Position source = convertStrToPos(pos);
-        ArrayList<Move> possibleMoves = (ArrayList<Move>) game.getPossibleMoves();
-        String[][] boardRep = game.getBoardRepresentation();
+        ArrayList<Move> possibleMoves = (ArrayList<Move>) _game.getPossibleMoves();
+        String[][] boardRep = _game.getBoardRepresentation();
         for (Move move : possibleMoves) {
             if (move.getSource().equals(source)) {
                 if (move instanceof AttackMove) {
@@ -125,19 +118,15 @@ public class UI {
         System.out.println("Current board with available destinations:");
         printBoard(boardRep);
     }
-    private static Position convertStrToPos(String str)
+    private Position convertStrToPos(String str)
     {
         int x = (int)str.charAt(0) - (int)'A';
         int y = 8 - Integer.parseInt(Character.toString(str.charAt(1)));
         return new Position(x, y);
     }
-    public static void handleHelpRequest()
+    private void handleHelpRequest()
     {
         System.out.println("1) Movement Command\n\tsyntax: [pos1] -> [pos2]\n\texample: A2 -> A4\n2) Show Moves of Specific Piece\n\tsyntax: [pos]\n\texample: G8");
-    }
-    public static void handleGetGameStateRequest()
-    {
-        System.out.println(game.getGameState());
     }
 
     private static boolean isProperPosition(String pos) {
@@ -148,7 +137,7 @@ public class UI {
         return false;
     }
 
-    static void printBoard(String[][] boardRep) {
+    private static void printBoard(String[][] boardRep) {
         String[] tile_backgrounds = {ANSI_WHITE_BACKGROUND, ANSI_RESET};
         String BLANK_TILE = " \u3000 ";
         System.out.print(CYAN_BOLD +ANSI_YELLOW_BACKGROUND +CYAN_BOLD + BLANK_TILE + BLANK_TILE+BLANK_TILE+BLANK_TILE+BLANK_TILE+BLANK_TILE+BLANK_TILE+BLANK_TILE+BLANK_TILE+ "   " + ANSI_RESET);

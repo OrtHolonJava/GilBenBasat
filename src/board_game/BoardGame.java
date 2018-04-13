@@ -19,4 +19,6 @@ public abstract class BoardGame <T extends Board> {
     public abstract void makeMove(Move move);
 
     public abstract void undoMove();
+
+    public abstract BoardGame<T> getCopy();
 }

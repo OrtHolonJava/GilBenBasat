@@ -1,6 +1,6 @@
 package chess_game.game_states;
 
-import board_game.GameState;
+import board_game.game_states.InGame;
 import board_game.Position;
 
 public class Check extends InGame {

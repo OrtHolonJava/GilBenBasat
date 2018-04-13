@@ -4,8 +4,8 @@ import board_game.*;
 import chess_game.enums.Direction;
 import chess_game.game_states.Check;
 import chess_game.game_states.CheckMate;
-import chess_game.game_states.GameEnded;
-import chess_game.game_states.InGame;
+import board_game.game_states.GameEnded;
+import board_game.game_states.InGame;
 import chess_game.moves.*;
 import chess_game.pieces.*;
 import chess_game.utils.Positions;
@@ -18,6 +18,7 @@ import static board_game.Alliance.BLACK;
 import static board_game.Alliance.WHITE;
 import static chess_game.enums.Direction.*;
 import static chess_game.utils.BoardUtils.* ;
+import static chess_game.utils.ChessGameUtils.enemyOf;
 
 public class ChessGame extends BoardGame<ChessBoard> {
     public ChessGame() {
@@ -28,7 +29,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
     @Override
     public Collection<Move> getPossibleMoves() {
         ArrayList<Move> moves = new ArrayList<>();
-        Alliance alliance = _allianceCycle[_allianceTurnIndex];
+        Alliance alliance = _allianceCycle[_allianceTurnIndex % 2];
 
         /* Add Regular Moves: includes pawn's double-tile move and pawn promotion */
         moves.addAll(getRegularMovesOf(alliance));
@@ -42,13 +43,12 @@ public class ChessGame extends BoardGame<ChessBoard> {
         /* In Case King has to be Safe: remove all the moves that makes the king un-safe. */
         if (isKingHasToBeSafe()) {
             ArrayList<Move> safeForKingMoves = new ArrayList<>();
-            Position kingPos = getKingPosition(alliance);
-            if (kingPos == null) {
+            if (getKingPosition(alliance) == null) {
                 throw new RuntimeException("King was not found.");
             }
             for (Move move : moves) {
                 makeMove(move);
-                if (isPositionSafe(kingPos, alliance)) {
+                if (isPositionSafe(getKingPosition(alliance), alliance)) {
                     safeForKingMoves.add(move);
                 }
                 undoMove();
@@ -87,7 +87,6 @@ public class ChessGame extends BoardGame<ChessBoard> {
                     }
                 }
                 if (piece.isMovementContinuous()) {
-                    currentPos = Positions.transform(currentPos, direction);
                     while (_board.isEmpty(currentPos)) {
                         moves.add(new Move(piecePos, currentPos));
                         currentPos = Positions.transform(currentPos, direction);
@@ -215,9 +214,8 @@ public class ChessGame extends BoardGame<ChessBoard> {
     }
 
     protected boolean isPositionSafe(Position pos, Alliance defenceAlliance) {
-        Alliance enemyAlliance = defenceAlliance == WHITE ? BLACK : WHITE;
-        for (Move move : getRegularMovesOf(enemyAlliance)) {
-            if (move instanceof AttackMove && move.getDestination() == pos) {
+        for (Move move : getRegularMovesOf(enemyOf(defenceAlliance))) {
+            if (move instanceof AttackMove && move.getDestination().equals(pos)) {
                 return false;
             }
         }
@@ -266,6 +264,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
         }
         _board.movePiece(move.getSource(), move.getDestination());
         _board.getMoveHistory().push(move);
+        _allianceTurnIndex++;
     }
 
     @Override
@@ -294,6 +293,24 @@ public class ChessGame extends BoardGame<ChessBoard> {
         } else if (move instanceof PromotionMove) {
             _board.setPiece(move.getSource(), new Pawn(movingPiece.getAlliance()));
         }
+        _allianceTurnIndex--;
+    }
+
+    @Override
+    public BoardGame<ChessBoard> getCopy() {
+        ChessGame game = new ChessGame();
+        game._allianceCycle = _allianceCycle.clone();
+        game._allianceTurnIndex = _allianceTurnIndex;
+        game._board = (ChessBoard) _board.getCopy();
+        return game;
+    }
+
+    public Collection<Position> getOccupiedPositions() {
+        return _board.getOccupiedPositions();
+    }
+
+    public ChessPiece getPiece(Position pos) {
+        return _board.getPiece(pos);
     }
 
     public String[][] getBoardRepresentation() {
@@ -329,7 +346,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
         _board.setPiece(new Position(1, 7), new Knight(WHITE));
         _board.setPiece(new Position(2, 7), new Bishop(WHITE));
         _board.setPiece(new Position(3, 7), new Queen(WHITE));*/
-        _board.setPiece(new Position(4, 7), new King(WHITE));
+        _board.setPiece(new Position(1, 1), new King(WHITE));
         /*_board.setPiece(new Position(5, 7), new Bishop(WHITE));
         _board.setPiece(new Position(6, 7), new Knight(WHITE));
         _board.setPiece(new Position(7, 7), new Rook(WHITE));

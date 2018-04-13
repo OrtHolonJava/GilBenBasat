@@ -39,4 +39,6 @@ public abstract class Board <T extends Piece> {
     }
 
     public abstract boolean isOnBoard(Position pos);
+
+    public abstract Board<T> getCopy();
 }

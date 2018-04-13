@@ -1,6 +1,7 @@
 package chess_game.game_states;
 
 import board_game.Alliance;
+import board_game.game_states.GameEnded;
 import board_game.Position;
 
 public class CheckMate extends GameEnded {

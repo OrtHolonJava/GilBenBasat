@@ -3,6 +3,7 @@ package chess_game;
 import board_game.*;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Stack;
 
 public class ChessBoard extends Board<ChessPiece> {
@@ -16,7 +17,16 @@ public class ChessBoard extends Board<ChessPiece> {
 
     @Override
     public boolean isOnBoard(Position pos) {
-        return pos.getX() > 0 && pos.getX() < N && pos.getY() > 0 && pos.getY() < M;
+        return pos.getX() >= 0 && pos.getX() < N && pos.getY() >= 0 && pos.getY() < M;
+    }
+
+    @Override
+    public Board<ChessPiece> getCopy() {
+        ChessBoard board = new ChessBoard();
+        board._moveHistory = (Stack<Move>)_moveHistory.clone();
+        board._takenOutPieces = (Stack<ChessPiece>) _takenOutPieces.clone();
+        board._positionsToPieces = (HashMap<Position, ChessPiece>) _positionsToPieces.clone();
+        return board;
     }
 
     public Collection<Position> getOccupiedPositions() {
