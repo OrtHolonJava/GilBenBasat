@@ -14,4 +14,17 @@ public class Position {
     public int getY() {
         return _y;
     }
+
+    @Override
+    public String toString() {
+        return "" + (char)('A' + _x) + (char)('8' - _y);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Position) {
+            return _x == ((Position) obj)._x && _y == ((Position) obj)._y;
+        }
+        return false;
+    }
 }

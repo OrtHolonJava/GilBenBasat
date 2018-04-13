@@ -40,8 +40,6 @@ public class UI {
             Scanner reader = new Scanner(System.in);
             System.out.print(">> ");
             command = reader.nextLine();
-            System.out.println("Current board:");
-            printBoard(game.getBoardRepresentation());
             handleRequest(command);
         }
 
@@ -83,7 +81,19 @@ public class UI {
     }
     public static void handleMoveRequest(String pos1, String pos2)
     {
-        game.makeMove(new Move(convertStrToPos(pos1), convertStrToPos(pos2)));
+        Position source = convertStrToPos(pos1);
+        Position destination = convertStrToPos(pos2);
+        for (Move move : game.getPossibleMoves()) {
+            if (move.getSource().equals(source) && move.getDestination().equals(destination)) {
+                game.makeMove(move);
+                System.out.println("Current board:");
+                printBoard(game.getBoardRepresentation());
+                return;
+            }
+        }
+        System.out.println("Current board:");
+        printBoard(game.getBoardRepresentation());
+        System.out.println("Error: impossible move.");
     }
     public static void handleShowPieceMovesRequest(String pos)
     {
@@ -91,7 +101,7 @@ public class UI {
         ArrayList<Move> possibleMoves = (ArrayList<Move>) game.getPossibleMoves();
         String[][] boardRep = game.getBoardRepresentation();
         for (Move move : possibleMoves) {
-            if (move.getSource() == source) {
+            if (move.getSource().equals(source)) {
                 if (move instanceof AttackMove) {
                     if (boardRep[move.getDestination().getX()][move.getDestination().getY()] != null)
                         boardRep[move.getDestination().getX()][move.getDestination().getY()] += '!';
@@ -112,8 +122,8 @@ public class UI {
                 }
             }
         }
+        System.out.println("Current board with available destinations:");
         printBoard(boardRep);
-        //System.out.println(Arrays.toString(game._possibleMovesFinder.getMovesOf(convertStrToPos(pos1)).toArray()));
     }
     private static Position convertStrToPos(String str)
     {
@@ -163,7 +173,10 @@ public class UI {
                             break;
                     }
                 }
-                System.out.print(background + (piece == null ? "\033[1;36m\u3000" : piece) + " ");
+                if (piece == null || piece.equals("")) {
+                    piece = "\033[1;36m\u3000";
+                }
+                System.out.print(background + piece + " ");
             }
             System.out.print(ANSI_YELLOW_BACKGROUND + "   " + ANSI_RESET);
         }

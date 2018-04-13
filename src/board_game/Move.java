@@ -14,4 +14,9 @@ public class Move {
     public Position getDestination() {
         return _destination;
     }
+
+    @Override
+    public String toString() {
+        return _source.toString() + " -> " + _destination.toString();
+    }
 }
