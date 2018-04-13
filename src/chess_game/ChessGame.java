@@ -32,7 +32,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
         Alliance alliance = _allianceCycle[_allianceTurnIndex % 2];
 
         /* Add Regular Moves: includes pawn's double-tile move and pawn promotion */
-        moves.addAll(getRegularMovesOf(alliance));
+        moves.addAll(getRegularMoves(alliance));
 
         /* Add Special Move: Pawn En Passant */
         moves.addAll(getEnPassentMoves(alliance));
@@ -58,7 +58,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
         return moves;
     }
 
-    public Collection<Move> getRegularMovesOf(Alliance alliance) {
+    public Collection<Move> getRegularMoves(Alliance alliance) {
         ArrayList<Move> moves = new ArrayList<>();
         for (Position piecePos : _board.getOccupiedPositions()) {
             ChessPiece piece = _board.getPiece(piecePos);
@@ -77,14 +77,13 @@ public class ChessGame extends BoardGame<ChessBoard> {
                         }
                         /* Add Double-Tile Move: Only if pawn is in his initial location. */
                         if (isPawnInInitialRow(piecePos, alliance)) {
-                            Position candidate = Positions.transform(currentPos, NORTH);
+                            Position candidate = Positions.transform(currentPos, piece.getMovementDirections().iterator().next());
                             if (_board.isEmpty(candidate)) {
                                 moves.add(new PawnDoubleTileMove(piecePos, candidate));
                             }
                         }
-                    } else {
-                        moves.add(new Move(piecePos, currentPos));
                     }
+                    moves.add(new Move(piecePos, currentPos));
                 }
                 if (piece.isMovementContinuous()) {
                     while (_board.isEmpty(currentPos)) {
@@ -214,7 +213,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
     }
 
     protected boolean isPositionSafe(Position pos, Alliance defenceAlliance) {
-        for (Move move : getRegularMovesOf(enemyOf(defenceAlliance))) {
+        for (Move move : getRegularMoves(enemyOf(defenceAlliance))) {
             if (move instanceof AttackMove && move.getDestination().equals(pos)) {
                 return false;
             }
@@ -224,7 +223,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
 
     @Override
     public GameState getGameState() {
-        Alliance defenceAlliance = _allianceCycle[_allianceTurnIndex];
+        Alliance defenceAlliance = _allianceCycle[_allianceTurnIndex % 2];
         Position kingPos = getKingPosition(defenceAlliance);
 
         GameState state = getEndGameState();
@@ -325,11 +324,11 @@ public class ChessGame extends BoardGame<ChessBoard> {
 
     protected void initBoard() {
         _board.setPiece(new Position(0, 0), new Rook(BLACK));
-        /*_board.setPiece(new Position(1, 0), new Knight(BLACK));
+        _board.setPiece(new Position(1, 0), new Knight(BLACK));
         _board.setPiece(new Position(2, 0), new Bishop(BLACK));
-        _board.setPiece(new Position(3, 0), new Queen(BLACK));*/
+        _board.setPiece(new Position(3, 0), new Queen(BLACK));
         _board.setPiece(new Position(4, 0), new King(BLACK));
-        /*_board.setPiece(new Position(5, 0), new Bishop(BLACK));
+        _board.setPiece(new Position(5, 0), new Bishop(BLACK));
         _board.setPiece(new Position(6, 0), new Knight(BLACK));
         _board.setPiece(new Position(7, 0), new Rook(BLACK));
 
@@ -345,9 +344,9 @@ public class ChessGame extends BoardGame<ChessBoard> {
         _board.setPiece(new Position(0, 7), new Rook(WHITE));
         _board.setPiece(new Position(1, 7), new Knight(WHITE));
         _board.setPiece(new Position(2, 7), new Bishop(WHITE));
-        _board.setPiece(new Position(3, 7), new Queen(WHITE));*/
-        _board.setPiece(new Position(1, 1), new King(WHITE));
-        /*_board.setPiece(new Position(5, 7), new Bishop(WHITE));
+        _board.setPiece(new Position(3, 7), new Queen(WHITE));
+        _board.setPiece(new Position(4, 7), new King(WHITE));
+        _board.setPiece(new Position(5, 7), new Bishop(WHITE));
         _board.setPiece(new Position(6, 7), new Knight(WHITE));
         _board.setPiece(new Position(7, 7), new Rook(WHITE));
 
@@ -358,17 +357,17 @@ public class ChessGame extends BoardGame<ChessBoard> {
         _board.setPiece(new Position(4, 6), new Pawn(WHITE));
         _board.setPiece(new Position(5, 6), new Pawn(WHITE));
         _board.setPiece(new Position(6, 6), new Pawn(WHITE));
-        _board.setPiece(new Position(7, 6), new Pawn(WHITE));*/
+        _board.setPiece(new Position(7, 6), new Pawn(WHITE));
     }
 
     protected boolean isCheck() {
-        Alliance defenceAlliance = _allianceCycle[_allianceTurnIndex];
+        Alliance defenceAlliance = _allianceCycle[_allianceTurnIndex % 2];
         Position kingPos = getKingPosition(defenceAlliance);
         return isPositionSafe(kingPos, defenceAlliance);
     }
 
     protected  GameEnded getEndGameState() {
-        Alliance defenceAlliance = _allianceCycle[_allianceTurnIndex];
+        Alliance defenceAlliance = _allianceCycle[_allianceTurnIndex % 2];
         Position kingPos = getKingPosition(defenceAlliance);
         if (isCheck() && getPossibleMoves().isEmpty()) {
             return new CheckMate(kingPos, defenceAlliance);

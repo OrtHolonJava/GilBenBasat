@@ -34,6 +34,8 @@ public class UI {
     }
 
     public Move run() {
+        System.out.println("Current board:");
+        printBoard(_game.getBoardRepresentation());
         while (_returnedMove == null) {
             String command;
             System.out.println(GIVE_COMMAND_INPUT);
@@ -81,6 +83,7 @@ public class UI {
                 _game.makeMove(move);
                 System.out.println("Current board:");
                 printBoard(_game.getBoardRepresentation());
+                _returnedMove = move;
                 return;
             }
         }
@@ -126,6 +129,8 @@ public class UI {
     }
     private void handleHelpRequest()
     {
+        System.out.println("Current board:");
+        printBoard(_game.getBoardRepresentation());
         System.out.println("1) Movement Command\n\tsyntax: [pos1] -> [pos2]\n\texample: A2 -> A4\n2) Show Moves of Specific Piece\n\tsyntax: [pos]\n\texample: G8");
     }
 
