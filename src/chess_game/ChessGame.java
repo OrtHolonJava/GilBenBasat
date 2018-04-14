@@ -30,7 +30,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
     @Override
     public Collection<Move> getPossibleMoves() {
         ArrayList<Move> moves = new ArrayList<>();
-        Alliance alliance = _allianceCycle[_allianceTurnIndex % 2];
+        Alliance alliance = getCurrentTurnAlliance();
 
         /* Add Regular Moves: includes pawn's double-tile move and pawn promotion */
         moves.addAll(getRegularMoves(alliance));
@@ -224,7 +224,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
 
     @Override
     public GameState getGameState() {
-        Alliance defenceAlliance = _allianceCycle[_allianceTurnIndex % 2];
+        Alliance defenceAlliance = getCurrentTurnAlliance();
         Position kingPos = getKingPosition(defenceAlliance);
 
         GameState state = getEndGameState();
@@ -241,6 +241,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
 
     @Override
     public void makeMove(Move move) {
+        onMakeMoveStarted(move);
         ChessPiece movingPiece = _board.getPiece(move.getSource());
         if (movingPiece instanceof Rook) {
             ((Rook) movingPiece).incMoveCount();
@@ -265,11 +266,13 @@ public class ChessGame extends BoardGame<ChessBoard> {
         _board.movePiece(move.getSource(), move.getDestination());
         _board.getMoveHistory().push(move);
         _allianceTurnIndex++;
+        onMakeMoveFinished(move);
     }
 
     @Override
     public void undoMove() {
         Move move = _board.getMoveHistory().pop();
+        onUndoMoveStarted(move);
         ChessPiece movingPiece = _board.getPiece(move.getDestination());
 
         _board.movePiece(move.getDestination(), move.getSource());
@@ -294,6 +297,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
             _board.setPiece(move.getSource(), new Pawn(movingPiece.getAlliance()));
         }
         _allianceTurnIndex--;
+        onUndoMoveFinished(move);
     }
 
     @Override
@@ -362,22 +366,40 @@ public class ChessGame extends BoardGame<ChessBoard> {
     }
 
     protected boolean isCheck() {
-        Alliance defenceAlliance = _allianceCycle[_allianceTurnIndex % 2];
+        Alliance defenceAlliance = getCurrentTurnAlliance();
         Position kingPos = getKingPosition(defenceAlliance);
         return isPositionSafe(kingPos, defenceAlliance);
     }
 
     protected  GameEnded getEndGameState() {
-        Alliance defenceAlliance = _allianceCycle[_allianceTurnIndex % 2];
+        Alliance defenceAlliance = getCurrentTurnAlliance();
         Position kingPos = getKingPosition(defenceAlliance);
         if (getPossibleMoves().isEmpty()) {
             if (isCheck()) {
-                return new CheckMate(kingPos, defenceAlliance);
+                return new CheckMate(kingPos, enemyOf(defenceAlliance));
             }
             else {
                 return new Tie();
             }
         }
+        else {
+            return getSpecialEndGameState();
+        }
+    }
+
+    protected GameEnded getSpecialEndGameState() {
         return null;
     }
+    
+    protected Alliance getCurrentTurnAlliance() {
+        return _allianceCycle[_allianceTurnIndex % 2];
+    }
+
+    protected void onMakeMoveStarted(Move move){}
+
+    protected void onMakeMoveFinished(Move move){}
+
+    protected void onUndoMoveStarted(Move move){}
+
+    protected void onUndoMoveFinished(Move move){}
 }
