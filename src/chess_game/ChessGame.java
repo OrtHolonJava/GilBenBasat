@@ -29,7 +29,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
 
     @Override
     public Collection<Move> getPossibleMoves() {
-        ArrayList<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<>(75);
         Alliance alliance = getCurrentTurnAlliance();
 
         /* Add Regular Moves: includes pawn's double-tile move and pawn promotion */
@@ -60,7 +60,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
     }
 
     public Collection<Move> getRegularMoves(Alliance alliance) {
-        ArrayList<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<>(75);
         for (Position piecePos : _board.getOccupiedPositions()) {
             ChessPiece piece = getPiece(piecePos);
             if (piece.getAlliance() != alliance) {
@@ -122,7 +122,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
 
     // TODO: make this more generic
     public Collection<Move> getEnPassentMoves(Alliance alliance) {
-        ArrayList<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<>(2);
         Move lastMove = _board.getLastMove();
         if (lastMove instanceof PawnDoubleTileMove) {
             Position enemyPos = lastMove.getDestination();
@@ -146,7 +146,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
 
     // TODO: HAVE TO make this more generic
     protected Collection<Move> getCastleMoves(Alliance alliance) {
-        ArrayList<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<>(2);
         if (alliance == BLACK) {
             Piece king = getPiece(BLACK_KING_START_POSITION);
             if (king instanceof King && ((King) king).getMoveCount() == 0) {

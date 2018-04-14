@@ -1,11 +1,7 @@
 package chess_game;
 
-import board_game.GameState;
 import board_game.Move;
 import board_game.Position;
-import chess_game.game_states.CheckMate;
-import board_game.game_states.InGame;
-import chess_game.game_states.Tie;
 import chess_game.moves.AttackMove;
 import chess_game.moves.CastleMove;
 

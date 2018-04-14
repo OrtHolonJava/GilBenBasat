@@ -1,7 +1,6 @@
 package chess_game;
 
 import board_game.Alliance;
-import board_game.Move;
 import board_game.Player;
 
 
