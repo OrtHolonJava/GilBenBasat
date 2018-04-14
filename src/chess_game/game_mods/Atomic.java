@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Stack;
 
 import static chess_game.enums.Direction.*;
-import static chess_game.enums.Direction.SOUTH_WEST;
 import static chess_game.utils.ChessGameUtils.enemyOf;
 
 public class Atomic extends ChessGame{
