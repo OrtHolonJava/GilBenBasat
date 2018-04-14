@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        AIPlayer ai = new AIPlayer("AI", Alliance.BLACK, 2, new EvaluateMethodType() {
+        AIPlayer ai = new AIPlayer("AI", Alliance.BLACK, 4, new EvaluateMethodType() {
             @Override
             public int evaluate(ChessGame game) {
                 int evaluation = 0;

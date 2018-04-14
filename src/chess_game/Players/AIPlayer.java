@@ -37,16 +37,16 @@ public class AIPlayer extends ChessPlayer {
                     temp = value;
                 }
                 alpha = max(value, alpha);
-            }
-		    else {
-                if (temp < value) {
+            } else {
+                if (value < temp) {
                     temp = value;
                 }
                 beta = min(value, beta);
-                if (alpha >= beta) {
-                    break; // stops the search for this tree because it's redundant
-                }
             }
+            if (alpha >= beta) {
+                break; // stops the search for this tree because it's redundant
+            }
+
         }
         return temp;
     }
@@ -55,7 +55,7 @@ public class AIPlayer extends ChessPlayer {
     public Move getNextMove(ChessGame game) {
         int maxValue = Integer.MIN_VALUE;
         Move bestMove = null;
-        for (Move move : game.getPossibleMoves()){
+        for (Move move : game.getPossibleMoves()) {
             game.makeMove(move);
             int value = minimax(game, _depth - 1, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
             game.undoMove();
