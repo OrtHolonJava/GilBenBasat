@@ -229,13 +229,13 @@ public class ChessGame extends BoardGame<ChessBoard> {
 
         GameState state = getEndGameState();
         // if its not an end game state- check if theres a check.
-        if (state == null && isUnderCheck()) {
-            state = new Check(kingPos);
+        if (state == null) {
+            if (isUnderCheck()) {
+                return new Check(kingPos);
+            } else {
+                return new InGame();
+            }
         }
-        else {
-            state = new InGame();
-        }
-
         return state;
     }
 
@@ -368,7 +368,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
     protected boolean isUnderCheck() {
         Alliance defenceAlliance = getCurrentTurnAlliance();
         Position kingPos = getKingPosition(defenceAlliance);
-        return isPositionSafe(kingPos, defenceAlliance);
+        return !isPositionSafe(kingPos, defenceAlliance);
     }
 
     protected  GameEnded getEndGameState() {

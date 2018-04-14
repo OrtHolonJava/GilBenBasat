@@ -25,6 +25,11 @@ public class BoardUtils {
     public static final Position TILE_F1 = new Position(5, 7);
     public static final Position TILE_G1 = new Position(6, 7);
 
+    public static final Position TILE_D4 = new Position(3, 4);
+    public static final Position TILE_D5 = new Position(3, 3);
+    public static final Position TILE_E4 = new Position(4, 4);
+    public static final Position TILE_E5 = new Position(4, 3);
+
     public static boolean isPromotionPos(Position pos, Alliance alliance) {
         if (alliance == Alliance.WHITE && pos.getY() == 0)
             return true;

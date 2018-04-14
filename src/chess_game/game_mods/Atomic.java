@@ -2,9 +2,11 @@ package chess_game.game_mods;
 
 import board_game.Move;
 import board_game.Position;
+import board_game.game_states.GameEnded;
 import chess_game.ChessGame;
 import chess_game.ChessPiece;
 import chess_game.enums.Direction;
+import chess_game.game_states.KingIsDead;
 import chess_game.pieces.Pawn;
 import chess_game.utils.Positions;
 
@@ -14,6 +16,7 @@ import java.util.Stack;
 
 import static chess_game.enums.Direction.*;
 import static chess_game.enums.Direction.SOUTH_WEST;
+import static chess_game.utils.ChessGameUtils.enemyOf;
 
 public class Atomic extends ChessGame{
     private final static List<Direction> ATOMIC_RADIUS_DIRECTIONS = List.of(NORTH, SOUTH, EAST, WEST, NORTH_EAST, NORTH_WEST,
@@ -51,5 +54,18 @@ public class Atomic extends ChessGame{
     @Override
     protected boolean isKingHasToBeSafe() {
         return false;
+    }
+
+    @Override
+    protected boolean isUnderCheck() {
+        return false; // There are no checks in Atomic-Chess
+    }
+
+    @Override
+    protected GameEnded getSpecialEndGameState() {
+        if (getKingPosition(getCurrentTurnAlliance()) == null) {
+            return new KingIsDead(enemyOf(getCurrentTurnAlliance()));
+        }
+        return null;
     }
 }
