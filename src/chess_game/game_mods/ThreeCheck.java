@@ -1,7 +1,6 @@
 package chess_game.game_mods;
 
 import board_game.Alliance;
-import board_game.GameState;
 import board_game.Move;
 import board_game.game_states.GameEnded;
 import chess_game.ChessGame;
@@ -20,7 +19,7 @@ public class ThreeCheck extends ChessGame {
 
     @Override
     protected void onMakeMoveFinished(Move move) {
-        if (isCheck()) {
+        if (isUnderCheck()) {
             int newCheckCount = _allianceCheckCount.get(getCurrentTurnAlliance()) + 1;
             _allianceCheckCount.put(getCurrentTurnAlliance(), newCheckCount);
         }
@@ -28,7 +27,7 @@ public class ThreeCheck extends ChessGame {
 
     @Override
     protected void onUndoMoveStarted(Move move) {
-        if (isCheck()) {
+        if (isUnderCheck()) {
             int newCheckCount = _allianceCheckCount.get(getCurrentTurnAlliance()) - 1;
             _allianceCheckCount.put(getCurrentTurnAlliance(), newCheckCount);
         }

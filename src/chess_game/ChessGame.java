@@ -62,7 +62,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
     public Collection<Move> getRegularMoves(Alliance alliance) {
         ArrayList<Move> moves = new ArrayList<>();
         for (Position piecePos : _board.getOccupiedPositions()) {
-            ChessPiece piece = _board.getPiece(piecePos);
+            ChessPiece piece = getPiece(piecePos);
             if (piece.getAlliance() != alliance) {
                 continue;
             }
@@ -96,18 +96,18 @@ public class ChessGame extends BoardGame<ChessBoard> {
                 if (piece instanceof Pawn) {
                     Position candidate = Positions.transform(currentPos, EAST);
                     try {
-                        if (_board.isOccupied(candidate) && _board.getPiece(candidate).getAlliance() != alliance) {
+                        if (_board.isOccupied(candidate) && getPiece(candidate).getAlliance() != alliance) {
                             moves.add(new AttackMove(piecePos, candidate));
                         }
                     } catch (Exception ignore) {
                     }
                     candidate = Positions.transform(currentPos, WEST);
-                    if (_board.isOccupied(candidate) && _board.getPiece(candidate).getAlliance() != alliance) {
+                    if (_board.isOccupied(candidate) && getPiece(candidate).getAlliance() != alliance) {
                         moves.add(new AttackMove(piecePos, candidate));
                     }
                 } else {
                     try {
-                        if (_board.isOccupied(currentPos) && _board.getPiece(currentPos).getAlliance() != alliance) {
+                        if (_board.isOccupied(currentPos) && getPiece(currentPos).getAlliance() != alliance) {
                             moves.add(new AttackMove(piecePos, currentPos));
                         }
                     } catch (Exception ignored) {
@@ -127,14 +127,14 @@ public class ChessGame extends BoardGame<ChessBoard> {
         if (lastMove instanceof PawnDoubleTileMove) {
             Position enemyPos = lastMove.getDestination();
             Position candidatePos = Positions.transform(enemyPos, EAST);
-            Piece candidatePiece = _board.getPiece(candidatePos);
+            Piece candidatePiece = getPiece(candidatePos);
             if (candidatePiece instanceof Pawn && candidatePiece.getAlliance() == alliance) {
                 Position candidateDestination = Positions.transform(enemyPos,
                         alliance == Alliance.WHITE ? NORTH : SOUTH);
                 moves.add(new EnPassantMove(candidatePos, candidateDestination, enemyPos));
             }
             candidatePos = Positions.transform(enemyPos, WEST);
-            candidatePiece = _board.getPiece(candidatePos);
+            candidatePiece = getPiece(candidatePos);
             if (candidatePiece instanceof Pawn && candidatePiece.getAlliance() == alliance) {
                 Position candidateDestination = Positions.transform(enemyPos,
                         alliance == Alliance.WHITE ? NORTH : SOUTH);
@@ -148,11 +148,11 @@ public class ChessGame extends BoardGame<ChessBoard> {
     protected Collection<Move> getCastleMoves(Alliance alliance) {
         ArrayList<Move> moves = new ArrayList<>();
         if (alliance == BLACK) {
-            Piece king = _board.getPiece(BLACK_KING_START_POSITION);
+            Piece king = getPiece(BLACK_KING_START_POSITION);
             if (king instanceof King && ((King) king).getMoveCount() == 0) {
                 // Check East castle
                 if (_board.isEmpty(TILE_F8) && _board.isEmpty(TILE_G8)) {
-                    Piece rook = _board.getPiece(BLACK_EAST_ROOK_START_POSITION);
+                    Piece rook = getPiece(BLACK_EAST_ROOK_START_POSITION);
                     if (rook instanceof Rook && ((Rook) rook).getMoveCount() == 0) {
                         if (isPositionSafe(TILE_F8, alliance) && isPositionSafe(TILE_G8, alliance)) {
                             moves.add(new CastleMove(BLACK_KING_START_POSITION, TILE_G8,
@@ -162,7 +162,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
                 }
                 // Check West castle
                 if (_board.isEmpty(TILE_B8) && _board.isEmpty(TILE_C8) && _board.isEmpty(TILE_D8)) {
-                    Piece rook = _board.getPiece(BLACK_WEST_ROOK_START_POSITION);
+                    Piece rook = getPiece(BLACK_WEST_ROOK_START_POSITION);
                     if (rook instanceof Rook && ((Rook) rook).getMoveCount() == 0) {
                         if (isPositionSafe(TILE_C8, alliance) && isPositionSafe(TILE_D8, alliance)) {
                             moves.add(new CastleMove(BLACK_KING_START_POSITION, TILE_C8,
@@ -173,11 +173,11 @@ public class ChessGame extends BoardGame<ChessBoard> {
             }
 
         } else {
-            Piece king = _board.getPiece(WHITE_KING_START_POSITION);
+            Piece king = getPiece(WHITE_KING_START_POSITION);
             if (king instanceof King && ((King) king).getMoveCount() == 0) {
                 // Check East castle
                 if (_board.isEmpty(TILE_F1) && _board.isEmpty(TILE_G1)) {
-                    Piece rook = _board.getPiece(WHITE_EAST_ROOK_START_POSITION);
+                    Piece rook = getPiece(WHITE_EAST_ROOK_START_POSITION);
                     if (rook instanceof Rook && ((Rook) rook).getMoveCount() == 0) {
                         if (isPositionSafe(TILE_F1, alliance) && isPositionSafe(TILE_G1, alliance)) {
                             moves.add(new CastleMove(WHITE_KING_START_POSITION, TILE_G1,
@@ -187,7 +187,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
                 }
                 // Check West castle
                 if (_board.isEmpty(TILE_B1) && _board.isEmpty(TILE_C1) && _board.isEmpty(TILE_D1)) {
-                    Piece rook = _board.getPiece(WHITE_WEST_ROOK_START_POSITION);
+                    Piece rook = getPiece(WHITE_WEST_ROOK_START_POSITION);
                     if (rook instanceof Rook && ((Rook) rook).getMoveCount() == 0) {
                         if (isPositionSafe(TILE_C1, alliance) && isPositionSafe(TILE_D1, alliance)) {
                             moves.add(new CastleMove(WHITE_KING_START_POSITION, TILE_C1,
@@ -205,7 +205,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
     protected Position getKingPosition(Alliance alliance) {
         Position kingPos = null;
         for (Position position : _board.getOccupiedPositions()) {
-            if (_board.getPiece(position) instanceof King && _board.getPiece(position).getAlliance() == alliance) {
+            if (getPiece(position) instanceof King && getPiece(position).getAlliance() == alliance) {
                 kingPos = position;
                 break;
             }
@@ -229,7 +229,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
 
         GameState state = getEndGameState();
         // if its not an end game state- check if theres a check.
-        if (state == null && isCheck()) {
+        if (state == null && isUnderCheck()) {
             state = new Check(kingPos);
         }
         else {
@@ -242,7 +242,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
     @Override
     public void makeMove(Move move) {
         onMakeMoveStarted(move);
-        ChessPiece movingPiece = _board.getPiece(move.getSource());
+        ChessPiece movingPiece = getPiece(move.getSource());
         if (movingPiece instanceof Rook) {
             ((Rook) movingPiece).incMoveCount();
         } else if (movingPiece instanceof King) {
@@ -256,7 +256,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
             } else {
                 attackedPiecePos = move.getDestination();
             }
-            _board.getTakenOutPieces().push(_board.getPiece(attackedPiecePos));
+            _board.getTakenOutPieces().push(getPiece(attackedPiecePos));
             _board.removePiece(attackedPiecePos);
         } else if (move instanceof CastleMove) {
             _board.movePiece(((CastleMove) move).getRookSource(), ((CastleMove) move).getRookDestination());
@@ -273,7 +273,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
     public void undoMove() {
         Move move = _board.getMoveHistory().pop();
         onUndoMoveStarted(move);
-        ChessPiece movingPiece = _board.getPiece(move.getDestination());
+        ChessPiece movingPiece = getPiece(move.getDestination());
 
         _board.movePiece(move.getDestination(), move.getSource());
 
@@ -365,7 +365,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
         _board.setPiece(new Position(7, 6), new Pawn(WHITE));
     }
 
-    protected boolean isCheck() {
+    protected boolean isUnderCheck() {
         Alliance defenceAlliance = getCurrentTurnAlliance();
         Position kingPos = getKingPosition(defenceAlliance);
         return isPositionSafe(kingPos, defenceAlliance);
@@ -375,7 +375,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
         Alliance defenceAlliance = getCurrentTurnAlliance();
         Position kingPos = getKingPosition(defenceAlliance);
         if (getPossibleMoves().isEmpty()) {
-            if (isCheck()) {
+            if (isUnderCheck()) {
                 return new CheckMate(kingPos, enemyOf(defenceAlliance));
             }
             else {
