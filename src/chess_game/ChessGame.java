@@ -6,6 +6,7 @@ import chess_game.game_states.Check;
 import chess_game.game_states.CheckMate;
 import board_game.game_states.GameEnded;
 import board_game.game_states.InGame;
+import chess_game.game_states.Tie;
 import chess_game.moves.*;
 import chess_game.pieces.*;
 import chess_game.utils.Positions;
@@ -127,14 +128,14 @@ public class ChessGame extends BoardGame<ChessBoard> {
             Position enemyPos = lastMove.getDestination();
             Position candidatePos = Positions.transform(enemyPos, EAST);
             Piece candidatePiece = _board.getPiece(candidatePos);
-            if (candidatePiece instanceof Pawn && candidatePiece.getAlliance() != alliance) {
+            if (candidatePiece instanceof Pawn && candidatePiece.getAlliance() == alliance) {
                 Position candidateDestination = Positions.transform(enemyPos,
                         alliance == Alliance.WHITE ? NORTH : SOUTH);
                 moves.add(new EnPassantMove(candidatePos, candidateDestination, enemyPos));
             }
             candidatePos = Positions.transform(enemyPos, WEST);
             candidatePiece = _board.getPiece(candidatePos);
-            if (candidatePiece instanceof Pawn && candidatePiece.getAlliance() != alliance) {
+            if (candidatePiece instanceof Pawn && candidatePiece.getAlliance() == alliance) {
                 Position candidateDestination = Positions.transform(enemyPos,
                         alliance == Alliance.WHITE ? NORTH : SOUTH);
                 moves.add(new EnPassantMove(candidatePos, candidateDestination, enemyPos));
@@ -369,8 +370,13 @@ public class ChessGame extends BoardGame<ChessBoard> {
     protected  GameEnded getEndGameState() {
         Alliance defenceAlliance = _allianceCycle[_allianceTurnIndex % 2];
         Position kingPos = getKingPosition(defenceAlliance);
-        if (isCheck() && getPossibleMoves().isEmpty()) {
-            return new CheckMate(kingPos, defenceAlliance);
+        if (getPossibleMoves().isEmpty()) {
+            if (isCheck()) {
+                return new CheckMate(kingPos, defenceAlliance);
+            }
+            else {
+                return new Tie();
+            }
         }
         return null;
     }
