@@ -1,8 +1,9 @@
-package chess_game;
+package chess_game.Players.players_utils;
 
 import board_game.Move;
 import board_game.Position;
 import board_game.UndoMove;
+import chess_game.ChessGame;
 import chess_game.moves.AttackMove;
 import chess_game.moves.CastleMove;
 

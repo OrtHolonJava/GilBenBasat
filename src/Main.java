@@ -6,6 +6,7 @@ import chess_game.ChessPiece;
 import chess_game.ChessPlayer;
 import chess_game.Players.AIPlayer;
 import chess_game.Players.HumanPlayer;
+import chess_game.Players.players_utils.AiEvaluatorTypeA;
 import chess_game.game_mods.Atomic;
 import chess_game.game_mods.Chess960;
 import chess_game.game_mods.KingOfTheHill;
@@ -30,31 +31,7 @@ public class Main {
             players.add(new HumanPlayer("Black"));
         }
         else if (in.equals("2")) {
-            AIPlayer ai = new AIPlayer("AI",4, new EvaluateMethodType() {
-                @Override
-                public int evaluate(ChessGame game) {
-                    int evaluation = 0;
-                    for (Position pos : game.getOccupiedPositions()) {
-                        ChessPiece piece = game.getPiece(pos);
-                        int sign = piece.getAlliance() == Alliance.BLACK ? 1 : -1;
-                        if (piece instanceof Pawn) {
-                            evaluation += sign;
-                        } else if (piece instanceof Knight) {
-                            evaluation += 3 * sign;
-                        } else if (piece instanceof Bishop) {
-                            evaluation += 3 * sign;
-                        } else if (piece instanceof Rook) {
-                            evaluation += 5 * sign;
-                        } else if (piece instanceof Queen) {
-                            evaluation += 9 * sign;
-                        } else if (piece instanceof King) {
-                            evaluation += 100 * sign;
-                        }
-                    }
-                    return evaluation;
-                }
-
-            });
+            AIPlayer ai = new AIPlayer("AI",4, new AiEvaluatorTypeA());
             HumanPlayer human = new HumanPlayer("Player");
             do {
                 System.out.println("Pick a color to play with (1 or 2):\n1) White\n2) Black");
