@@ -1,6 +1,8 @@
 package chess_game.game_mods;
 
+import board_game.BoardGame;
 import board_game.Position;
+import chess_game.ChessBoard;
 import chess_game.ChessGame;
 import chess_game.pieces.*;
 
@@ -9,6 +11,16 @@ import java.util.Random;
 import static board_game.Alliance.*;
 
 public class Chess960 extends ChessGame {
+
+    @Override
+    public BoardGame<ChessBoard> getCopy() {
+        Chess960 game = new Chess960();
+        game._allianceCycle = _allianceCycle.clone();
+        game._allianceTurnIndex = _allianceTurnIndex;
+        game._board = (ChessBoard) _board.getCopy();
+        return game;
+    }
+
     @Override
     protected void initBoard() {
         int[] homeRankFreePos = {0, 1, 2, 3, 4, 5, 6, 7}; // indicates which indexes of home rank are free. at start all are free.

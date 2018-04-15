@@ -1,8 +1,10 @@
 package chess_game.game_mods;
 
+import board_game.BoardGame;
 import board_game.Move;
 import board_game.Position;
 import board_game.game_states.GameEnded;
+import chess_game.ChessBoard;
 import chess_game.ChessGame;
 import chess_game.ChessPiece;
 import chess_game.enums.Direction;
@@ -21,6 +23,16 @@ import static chess_game.utils.ChessGameUtils.enemyOf;
 public class Atomic extends ChessGame{
     private final static List<Direction> ATOMIC_RADIUS_DIRECTIONS = List.of(NORTH, SOUTH, EAST, WEST, NORTH_EAST, NORTH_WEST,
         SOUTH_EAST, SOUTH_WEST);
+
+    @Override
+    public BoardGame<ChessBoard> getCopy() {
+        Atomic game = new Atomic();
+        game._allianceCycle = _allianceCycle.clone();
+        game._allianceTurnIndex = _allianceTurnIndex;
+        game._board = (ChessBoard) _board.getCopy();
+        return game;
+    }
+
     @Override
     protected void onMakeMoveFinished(Move move) {
         if (move instanceof AttackMove) {

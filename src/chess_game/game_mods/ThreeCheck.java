@@ -1,8 +1,10 @@
 package chess_game.game_mods;
 
 import board_game.Alliance;
+import board_game.BoardGame;
 import board_game.Move;
 import board_game.game_states.GameEnded;
+import chess_game.ChessBoard;
 import chess_game.ChessGame;
 import chess_game.game_states.ThreeCheckWin;
 
@@ -15,6 +17,16 @@ public class ThreeCheck extends ChessGame {
     public ThreeCheck() {
         super();
         _allianceCheckCount = new HashMap<>();
+    }
+
+    @Override
+    public BoardGame<ChessBoard> getCopy() {
+        ThreeCheck game = new ThreeCheck();
+        game._allianceCycle = _allianceCycle.clone();
+        game._allianceTurnIndex = _allianceTurnIndex;
+        game._board = (ChessBoard) _board.getCopy();
+        game._allianceCheckCount = (HashMap<Alliance, Integer>) _allianceCheckCount.clone();
+        return game;
     }
 
     @Override

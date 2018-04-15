@@ -1,8 +1,10 @@
 package chess_game.game_mods;
 
 import board_game.Alliance;
+import board_game.BoardGame;
 import board_game.Position;
 import board_game.game_states.GameEnded;
+import chess_game.ChessBoard;
 import chess_game.ChessGame;
 import chess_game.game_states.KingIsOnTheHill;
 
@@ -13,6 +15,16 @@ import static chess_game.utils.ChessGameUtils.enemyOf;
 
 public class KingOfTheHill extends ChessGame {
     private final static List<Position> KING_WINNING_POSITIONS = List.of(TILE_D4, TILE_D5 ,TILE_E4, TILE_E5);
+
+    @Override
+    public BoardGame<ChessBoard> getCopy() {
+        KingOfTheHill game = new KingOfTheHill();
+        game._allianceCycle = _allianceCycle.clone();
+        game._allianceTurnIndex = _allianceTurnIndex;
+        game._board = (ChessBoard) _board.getCopy();
+        return game;
+    }
+
     @Override
     protected GameEnded getSpecialEndGameState() {
         Alliance kingAlliance = enemyOf(getCurrentTurnAlliance());
