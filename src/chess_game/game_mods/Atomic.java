@@ -13,15 +13,13 @@ import chess_game.moves.AttackMove;
 import chess_game.pieces.Pawn;
 import chess_game.utils.Positions;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 import static chess_game.enums.Direction.*;
 import static chess_game.utils.ChessGameUtils.enemyOf;
 
 public class Atomic extends ChessGame{
-    private final static List<Direction> ATOMIC_RADIUS_DIRECTIONS = List.of(NORTH, SOUTH, EAST, WEST, NORTH_EAST, NORTH_WEST,
+    private final static List<Direction> ATOMIC_RADIUS_DIRECTIONS = Arrays.asList(NORTH, SOUTH, EAST, WEST, NORTH_EAST, NORTH_WEST,
         SOUTH_EAST, SOUTH_WEST);
 
     @Override

@@ -19,4 +19,14 @@ public class Move {
     public String toString() {
         return _source.toString() + " -> " + _destination.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Move) {
+            if (_source != null && _destination != null) {
+                return _source.equals(((Move) obj)._source) && _destination.equals(((Move) obj)._destination);
+            }
+        }
+        return false;
+    }
 }

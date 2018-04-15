@@ -18,7 +18,9 @@ public abstract class Board <T extends Piece> {
     }
 
     public void setPiece(Position pos, T piece) {
-        _positionsToPieces.put(pos, piece);
+        if (piece != null) {
+            _positionsToPieces.put(pos, piece);
+        }
     }
 
     public void removePiece(Position pos) {

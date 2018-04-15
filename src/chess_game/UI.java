@@ -2,6 +2,7 @@ package chess_game;
 
 import board_game.Move;
 import board_game.Position;
+import board_game.UndoMove;
 import chess_game.moves.AttackMove;
 import chess_game.moves.CastleMove;
 
@@ -62,6 +63,9 @@ public class UI {
             else if (args[0].equals("HELP")) {
                 handleHelpRequest();
             }
+            else if (args[0].equals("UNDO")) {
+                handleUndoRequest();
+            }
             else {
                 System.out.println("Error: unknown syntax.");
             }
@@ -86,6 +90,13 @@ public class UI {
         System.out.println("Current board:");
         printBoard(_game.getBoardRepresentation());
         System.out.println("Error: impossible move.");
+    }
+    private void handleUndoRequest() {
+        Move undoMove = new UndoMove();
+        _game.undoMove();
+        System.out.println("Current board:");
+        printBoard(_game.getBoardRepresentation());
+        _returnedMove = undoMove;
     }
     private void handleShowPieceMovesRequest(String pos)
     {

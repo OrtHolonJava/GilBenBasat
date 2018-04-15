@@ -6,6 +6,7 @@ import chess_game.ChessBoard;
 import chess_game.ChessGame;
 import chess_game.pieces.*;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static board_game.Alliance.*;
@@ -27,45 +28,52 @@ public class Chess960 extends ChessGame {
         Random rnd = new Random();
         int index;
         // selects position for the first bishop
-        index = (rnd.nextInt() % 4) * 2; // even-tile bishop
+        index = rnd.nextInt(4) * 2; // even-tile bishop
         _board.setPiece(new Position(index, 0), new Bishop(BLACK));
         _board.setPiece(new Position(index, 7), new Bishop(WHITE));
         homeRankFreePos[index] = homeRankFreePos[7];
         // selects position for the second bishop
-        index = (rnd.nextInt() % 4) * 2 + 1;
+        index = rnd.nextInt(4) * 2 + 1;
         _board.setPiece(new Position(index, 0), new Bishop(BLACK));
         _board.setPiece(new Position(index, 7), new Bishop(WHITE));
         homeRankFreePos[index] = homeRankFreePos[6];
 
         // select position for queen
-        index = rnd.nextInt() % 6;
+        index = rnd.nextInt(6);
         _board.setPiece(new Position(homeRankFreePos[index], 0), new Queen(BLACK));
         _board.setPiece(new Position(homeRankFreePos[index], 7), new Queen(WHITE));
         homeRankFreePos[index] = homeRankFreePos[5];
 
         // select position for the first knight
-        index = rnd.nextInt() % 5;
+        index = rnd.nextInt(5);
         _board.setPiece(new Position(homeRankFreePos[index], 0), new Knight(BLACK));
         _board.setPiece(new Position(homeRankFreePos[index], 7), new Knight(WHITE));
         homeRankFreePos[index] = homeRankFreePos[4];
 
         // select position for the second knight
-        index = rnd.nextInt() % 4;
+        index = rnd.nextInt(4);
         _board.setPiece(new Position(homeRankFreePos[index], 0), new Knight(BLACK));
         _board.setPiece(new Position(homeRankFreePos[index], 7), new Knight(WHITE));
         homeRankFreePos[index] = homeRankFreePos[3];
 
-        // set rooks and king position
-        _board.setPiece(new Position(homeRankFreePos[0], 0), new Rook(BLACK));
-        _board.setPiece(new Position(homeRankFreePos[0], 7), new Rook(WHITE));
+        // calculate min, mid and max so that the king would be in the middle of the two rooks.
+        int[] indexes = new int[3];
+        indexes[0] = homeRankFreePos[0];
+        indexes[1] = homeRankFreePos[1];
+        indexes[2] = homeRankFreePos[2];
+        Arrays.sort(indexes);
 
-        // set rooks and king position
-        _board.setPiece(new Position(homeRankFreePos[1], 0), new King(BLACK));
-        _board.setPiece(new Position(homeRankFreePos[1], 7), new King(WHITE));
+        // set rooks position position
+        _board.setPiece(new Position(indexes[0], 0), new Rook(BLACK));
+        _board.setPiece(new Position(indexes[0], 7), new Rook(WHITE));
 
-        // set rooks and king position
-        _board.setPiece(new Position(homeRankFreePos[2], 0), new Rook(BLACK));
-        _board.setPiece(new Position(homeRankFreePos[2], 7), new Rook(WHITE));
+        _board.setPiece(new Position(indexes[2], 0), new Rook(BLACK));
+        _board.setPiece(new Position(indexes[2], 7), new Rook(WHITE));
+
+        // set king position
+        _board.setPiece(new Position(indexes[1], 0), new King(BLACK));
+        _board.setPiece(new Position(indexes[1], 7), new King(WHITE));
+
 
         // set pawn positions
         _board.setPiece(new Position(0, 1), new Pawn(BLACK));

@@ -17,6 +17,8 @@ public class ThreeCheck extends ChessGame {
     public ThreeCheck() {
         super();
         _allianceCheckCount = new HashMap<>();
+        _allianceCheckCount.put(Alliance.WHITE, 0);
+        _allianceCheckCount.put(Alliance.BLACK, 0);
     }
 
     @Override
@@ -47,7 +49,7 @@ public class ThreeCheck extends ChessGame {
 
     @Override
     protected GameEnded getSpecialEndGameState() {
-        if (_allianceCheckCount.get(getCurrentTurnAlliance()) >= 3) {
+        if (3 <= _allianceCheckCount.get(getCurrentTurnAlliance())) {
             return new ThreeCheckWin(enemyOf(getCurrentTurnAlliance()));
         }
         return null;
