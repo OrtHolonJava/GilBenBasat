@@ -17,8 +17,8 @@ public class AIPlayer extends ChessPlayer {
     private int _depth;
     private EvaluateMethodType _evaluationFunc;
 
-    public AIPlayer(String name, Alliance alliance, int depth, EvaluateMethodType evaluationFunc) {
-        super(name, alliance);
+    public AIPlayer(String name, int depth, EvaluateMethodType evaluationFunc) {
+        super(name);
         _depth = depth;
         _evaluationFunc = evaluationFunc;
     }

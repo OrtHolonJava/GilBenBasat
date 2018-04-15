@@ -7,8 +7,8 @@ import chess_game.ChessPlayer;
 import chess_game.UI;
 
 public class HumanPlayer extends ChessPlayer {
-    public HumanPlayer(String name, Alliance alliance) {
-        super(name, alliance);
+    public HumanPlayer(String name) {
+        super(name);
     }
 
     @Override

@@ -7,6 +7,7 @@ import chess_game.ChessGame;
 import chess_game.ChessPiece;
 import chess_game.enums.Direction;
 import chess_game.game_states.KingIsDead;
+import chess_game.moves.AttackMove;
 import chess_game.pieces.Pawn;
 import chess_game.utils.Positions;
 
@@ -22,32 +23,36 @@ public class Atomic extends ChessGame{
         SOUTH_EAST, SOUTH_WEST);
     @Override
     protected void onMakeMoveFinished(Move move) {
-        Stack<ChessPiece> takenOutPieces = _board.getTakenOutPieces();
-        Position explosionSourcePos = move.getDestination();
-        takenOutPieces.push(getPiece(explosionSourcePos));
-        _board.removePiece(explosionSourcePos);
-        for (Direction direction : ATOMIC_RADIUS_DIRECTIONS) {
-            Position explosionPos = Positions.transform(explosionSourcePos, direction);
-            if (!(getPiece(explosionPos) instanceof Pawn)) {
-                takenOutPieces.push(getPiece(explosionPos));
-                _board.removePiece(explosionPos);
+        if (move instanceof AttackMove) {
+            Stack<ChessPiece> takenOutPieces = _board.getTakenOutPieces();
+            Position explosionSourcePos = move.getDestination();
+            takenOutPieces.push(getPiece(explosionSourcePos));
+            _board.removePiece(explosionSourcePos);
+            for (Direction direction : ATOMIC_RADIUS_DIRECTIONS) {
+                Position explosionPos = Positions.transform(explosionSourcePos, direction);
+                if (!(getPiece(explosionPos) instanceof Pawn)) {
+                    takenOutPieces.push(getPiece(explosionPos));
+                    _board.removePiece(explosionPos);
+                }
             }
         }
     }
 
     @Override
     protected void onUndoMoveStarted(Move move) {
-        Stack<ChessPiece> takenOutPieces = _board.getTakenOutPieces();
-        List<Direction> reversedDirections =  ATOMIC_RADIUS_DIRECTIONS.subList(0, ATOMIC_RADIUS_DIRECTIONS.size());
-        Collections.reverse(reversedDirections);
-        Position explosionSourcePos = move.getDestination();
-        for (Direction direction : reversedDirections) {
-            Position explosionPos = Positions.transform(explosionSourcePos, direction);
-            if (!(getPiece(explosionPos) instanceof Pawn)) {
-                _board.setPiece(explosionPos, takenOutPieces.pop());
+        if (move instanceof AttackMove) {
+            Stack<ChessPiece> takenOutPieces = _board.getTakenOutPieces();
+            List<Direction> reversedDirections = ATOMIC_RADIUS_DIRECTIONS.subList(0, ATOMIC_RADIUS_DIRECTIONS.size());
+            Collections.reverse(reversedDirections);
+            Position explosionSourcePos = move.getDestination();
+            for (Direction direction : reversedDirections) {
+                Position explosionPos = Positions.transform(explosionSourcePos, direction);
+                if (!(getPiece(explosionPos) instanceof Pawn)) {
+                    _board.setPiece(explosionPos, takenOutPieces.pop());
+                }
             }
+            _board.setPiece(explosionSourcePos, takenOutPieces.pop());
         }
-        _board.setPiece(explosionSourcePos, takenOutPieces.pop());
     }
 
     @Override

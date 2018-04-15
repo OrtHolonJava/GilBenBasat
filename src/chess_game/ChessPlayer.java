@@ -5,7 +5,7 @@ import board_game.Player;
 
 
 public abstract class ChessPlayer extends Player<ChessGame> {
-    public ChessPlayer(String name, Alliance alliance) {
-        super(name, alliance);
+    public ChessPlayer(String name) {
+        super(name);
     }
 }

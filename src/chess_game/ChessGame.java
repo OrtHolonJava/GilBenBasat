@@ -42,7 +42,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
         moves.addAll(getCastleMoves(alliance));
 
         /* In Case King has to be Safe: remove all the moves that makes the king un-safe. */
-        if (isKingHasToBeSafe()) {
+        if (this.isKingHasToBeSafe()) {
             ArrayList<Move> safeForKingMoves = new ArrayList<>();
             if (getKingPosition(alliance) == null) {
                 throw new RuntimeException("King was not found.");
