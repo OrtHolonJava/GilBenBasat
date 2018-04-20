@@ -1,21 +1,19 @@
-import board_game.Alliance;
-import board_game.Position;
-import chess_game.ChessGame;
-import chess_game.ChessGamePlatform;
-import chess_game.ChessPiece;
-import chess_game.ChessPlayer;
-import chess_game.Players.AIPlayer;
-import chess_game.Players.HumanPlayer;
-import chess_game.Players.players_utils.AiEvaluatorTypeA;
-import chess_game.game_mods.Atomic;
-import chess_game.game_mods.Chess960;
-import chess_game.game_mods.KingOfTheHill;
-import chess_game.game_mods.ThreeCheck;
-import chess_game.interfaces.EvaluateMethodType;
-import chess_game.pieces.*;
+import gchess.chess.ChessGame;
+import gchess.chess.ChessGamePlatform;
+import gchess.chess.ChessPlayer;
+import gchess.chess.players.AIPlayer;
+import gchess.chess.players.HumanPlayer;
+import gchess.chess.players.evaluators.AiEvaluatorTypeA;
+import gchess.chess.gamemods.Atomic;
+import gchess.chess.gamemods.Chess960;
+import gchess.chess.gamemods.KingOfTheHill;
+import gchess.chess.gamemods.ThreeCheck;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static gchess.boardgame.Alliance.BLACK;
+import static gchess.boardgame.Alliance.WHITE;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,23 +25,21 @@ public class Main {
             in = reader.nextLine();
         } while (!(in.equals("1") || in.equals("2")));
         if (in.equals("1")) {
-            players.add(new HumanPlayer("White"));
-            players.add(new HumanPlayer("Black"));
+            players.add(new HumanPlayer("White", WHITE));
+            players.add(new HumanPlayer("Black", BLACK));
         }
         else if (in.equals("2")) {
-            AIPlayer ai = new AIPlayer("AI",4, new AiEvaluatorTypeA());
-            HumanPlayer human = new HumanPlayer("Player");
             do {
                 System.out.println("Pick a color to play with (1 or 2):\n1) White\n2) Black");
                 in = reader.nextLine();
             } while (!(in.equals("1") || in.equals("2")));
             if (in.equals("1")) {
-                players.add(human);
-                players.add(ai);
+                players.add(new HumanPlayer("Player", WHITE));
+                players.add(new AIPlayer("AI", BLACK, 4, new AiEvaluatorTypeA()));
             }
             else if (in.equals("2")) {
-                players.add(ai);
-                players.add(human);
+                players.add(new AIPlayer("AI", WHITE, 4, new AiEvaluatorTypeA()));
+                players.add(new HumanPlayer("Player", BLACK));
             }
         }
         do {
