@@ -8,6 +8,7 @@ import gchess.chess.gamemods.Atomic;
 import gchess.chess.gamemods.Chess960;
 import gchess.chess.gamemods.KingOfTheHill;
 import gchess.chess.gamemods.ThreeCheck;
+import gui.MainFrame;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,6 +18,12 @@ import static gchess.boardgame.Alliance.WHITE;
 
 public class Main {
     public static void main(String[] args) {
+        activateDefaultGui();
+    }
+    private static void activateDefaultGui() {
+        MainFrame mainFrame = new MainFrame();
+    }
+    private static void activateDefaultUi() {
         ArrayList<ChessPlayer> players = new ArrayList<>();
         Scanner reader = new Scanner(System.in);
         String in;

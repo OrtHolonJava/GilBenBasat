@@ -26,7 +26,7 @@ public class PlayerVsAiPanel extends JPanel {
         gameMode.setBounds(392, 164, 113, 20);
         add(gameMode);
 
-        Label label_1 = new Label("Time:");
+        /*Label label_1 = new Label("Time:");
         label_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
         label_1.setBounds(283, 195, 107, 19);
         add(label_1);
@@ -53,7 +53,7 @@ public class PlayerVsAiPanel extends JPanel {
 
         JLabel lblS = new JLabel("s");
         lblS.setBounds(472, 201, 13, 14);
-        add(lblS);
+        add(lblS);*/
 
         JButton btnNewButton = new JButton("Start Game");
         btnNewButton.setBounds(333, 315, 109, 23);

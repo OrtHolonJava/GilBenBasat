@@ -5,6 +5,8 @@ import gchess.boardgame.*;
 import gchess.boardgame.states.GameEnded;
 import gchess.chess.ChessGame;
 import gchess.chess.enums.Piece;
+import gchess.chess.moves.AttackMove;
+import gchess.chess.moves.CastleMove;
 import gchess.chess.players.UI;
 import gchess.chess.states.*;
 import gchess.enums.GameMode;
@@ -15,6 +17,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.prefs.Preferences;
 
 import static gchess.chess.utils.ChessGameUtils.enemyOf;
@@ -26,10 +29,14 @@ public class GamePanel extends JPanel implements UI {
     public final Object lock = new Object();
     private ChessGame _currentGame = null;
     private BoardPanel _board;
+    private boolean flipBoard;
+    private boolean flipBoardFromStart;
+    private int _turn;
     private Move _nextMove = null;
     private Position _selectedPosition = null;
     private ArrayList<Position> _possibleDestinations = null;
     public GamePanel() {
+        _turn = 0;
         setLayout(new BorderLayout(0, 0));
 
         JPanel panel = new JPanel();
@@ -136,13 +143,13 @@ public class GamePanel extends JPanel implements UI {
     @Override
     public void onGameStarted(ChessGame game) {
         _currentGame = game;
-        _board.setTiles(toTileList(game.getBoardRepresentation()));
+        drawBoard(toTileList(game.getBoardRepresentation()));
     }
 
     @Override
     public void onPlayerMadeMove(ChessGame game) {
         _currentGame = game;
-        _board.setTiles(toTileList(game.getBoardRepresentation()));
+        drawBoard(toTileList(game.getBoardRepresentation()));
     }
 
     @Override
@@ -197,6 +204,7 @@ public class GamePanel extends JPanel implements UI {
     }
 
     private void makeMove(Position source, Position destination) {
+        _turn++;
         for (Move move : _currentGame.getPossibleMoves()) {
             if (move.getSource().equals(source) && move.getDestination().equals(destination)) {
                 _nextMove = move;
@@ -205,22 +213,37 @@ public class GamePanel extends JPanel implements UI {
                 }
                 return;
             }
-
         }
     }
 
     private void setDestinationsForPosition(Position selectedPosition) {
         _possibleDestinations = new ArrayList<>();
+        ArrayList<Tile> currentTiles = toTileList(_currentGame.getBoardRepresentation());
+        Color backgroundColor;
         for (Move move : _currentGame.getPossibleMoves()) {
             if (move.getSource().equals(selectedPosition)) {
                 _possibleDestinations.add(move.getDestination());
+                if (move instanceof AttackMove) {
+                    backgroundColor = Color.RED;
+                } else if (move instanceof CastleMove) {
+                    backgroundColor = Color.MAGENTA;
+                } else {
+                    backgroundColor = Color.YELLOW;
+                }
+                currentTiles.get(positionToTileIndex(move.getDestination())).setBackgroundColor(backgroundColor);
             }
         }
-        ArrayList<Tile> currentTiles = toTileList(_currentGame.getBoardRepresentation());
-        for (Position pos : _possibleDestinations) {
-            currentTiles.get(positionToTileIndex(pos)).setBackgroundColor(Color.YELLOW);
+        drawBoard(currentTiles);
+    }
+
+    private void drawBoard(ArrayList<Tile> tiles) {
+        if (flipBoard && _turn % 2 == 1) {
+            Collections.reverse(tiles);
         }
-        _board.setTiles(currentTiles);
+        if (flipBoardFromStart) {
+            Collections.reverse(tiles);
+        }
+        _board.setTiles(tiles);
         _board.revalidate();
         _board.repaint();
     }
@@ -238,6 +261,7 @@ public class GamePanel extends JPanel implements UI {
                 gChess.startNewPlayerVsAiGame(strToGameMode(prefs.get("gameMode", "CLASSIC")),
                     prefs.getBoolean("isWhite", true) ? Alliance.WHITE: Alliance.BLACK,
                     prefs.getInt("aiDifficulty", 4), this);
+                flipBoardFromStart = !prefs.getBoolean("isWhite", true);
             } catch (GChessThrowable gChessThrowable) {
                 gChessThrowable.printStackTrace();
             }
@@ -245,6 +269,7 @@ public class GamePanel extends JPanel implements UI {
         else {
             try {
                 gChess.startNewPlayerVsPlayerGame(strToGameMode(prefs.get("gameMode", "CLASSIC")), this);
+                flipBoard = prefs.getBoolean("toFlip", true);
             } catch (GChessThrowable gChessThrowable) {
                 gChessThrowable.printStackTrace();
             }

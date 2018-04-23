@@ -8,7 +8,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.prefs.Preferences;
 
-public class PlayerVsPlayerPanel extends JPanel implements PropertyChangeListener {
+public class PlayerVsPlayerPanel extends JPanel {
+    Checkbox flip;
     private JTextField time;
     private JTextField addTime;
     private JComboBox gameMode;
@@ -26,7 +27,7 @@ public class PlayerVsPlayerPanel extends JPanel implements PropertyChangeListene
         gameMode.setBounds(392, 164, 113, 20);
         add(gameMode);
 
-        Label label_1 = new Label("Time:");
+        /*Label label_1 = new Label("Time:");
         label_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
         label_1.setBounds(283, 195, 107, 19);
         add(label_1);
@@ -53,12 +54,12 @@ public class PlayerVsPlayerPanel extends JPanel implements PropertyChangeListene
 
         JLabel lblS = new JLabel("s");
         lblS.setBounds(472, 201, 13, 14);
-        add(lblS);
+        add(lblS);*/
 
-        Checkbox checkbox = new Checkbox("Flip board (after every move)");
-        checkbox.setState(true);
-        checkbox.setBounds(286, 220, 172, 19);
-        add(checkbox);
+        flip = new Checkbox("Flip board (after every move)");
+        flip.setState(true);
+        flip.setBounds(286, 220, 172, 19);
+        add(flip);
 
         JButton btnNewButton = new JButton("Start Game");
         btnNewButton.setBounds(332, 272, 109, 23);
@@ -83,11 +84,8 @@ public class PlayerVsPlayerPanel extends JPanel implements PropertyChangeListene
     private void savePrefs() {
         Preferences prefs = Preferences.userNodeForPackage(this.getClass());
         prefs.put("gameMode", ((String)gameMode.getSelectedItem()).toUpperCase());
+        prefs.putBoolean("toFlip", flip.getState());
         prefs.putBoolean("isAiGame", false);
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
-    }
 }

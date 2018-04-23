@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="878a0e52-4fa0-4962-9657-71351af71265" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/GChess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/GChess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/boardgame/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/boardgame/BoardGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/boardgame/BoardGamePlatform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/boardgame/BoardGamePlatform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/ChessGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/MainFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/PlayerVsAiPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/PlayerVsAiPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/PlayerVsPlayerPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/PlayerVsPlayerPanel.java" afterDir="false" />
     </list>
@@ -27,22 +22,49 @@
       <file leaf-file-name="GamePanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/GamePanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-558">
-              <caret line="52" column="62" selection-start-line="52" selection-start-column="62" selection-end-line="52" selection-end-column="62" />
+            <state relative-caret-position="275">
+              <caret line="243" column="39" selection-start-line="243" selection-start-column="39" selection-end-line="243" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#8009#8010#0" expanded="true" />
-                <element signature="e#8059#8060#0" expanded="true" />
+                <element signature="e#8633#8634#0" expanded="true" />
+                <element signature="e#8683#8684#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerVsPlayerPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
+              <folding>
+                <element signature="e#636#637#0" expanded="true" />
+                <element signature="e#672#673#0" expanded="true" />
+                <element signature="e#682#683#0" expanded="true" />
+                <element signature="e#734#735#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayerVsPlayerPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/PlayerVsPlayerPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+            <state relative-caret-position="445">
+              <caret line="89" selection-start-line="89" selection-end-line="89" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayerVsAiPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gui/PlayerVsAiPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-932">
+              <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -126,18 +148,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainFrame.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/MainFrame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -199,22 +209,22 @@
         <option value="$PROJECT_DIR$/src/gui/Grid.java" />
         <option value="$PROJECT_DIR$/src/gui/Tile.java" />
         <option value="$PROJECT_DIR$/src/gui/ImageUtils.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/gui/MainPanel.java" />
         <option value="$PROJECT_DIR$/src/gui/BoardPanel.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/moves/AttackAndPromoteMove.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/players/AIPlayer.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/states/Surrender.java" />
         <option value="$PROJECT_DIR$/src/gui/MainFrame.java" />
-        <option value="$PROJECT_DIR$/src/gui/PlayerVsAiPanel.java" />
-        <option value="$PROJECT_DIR$/src/gui/PlayerVsPlayerPanel.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/ChessGamePlatform.java" />
         <option value="$PROJECT_DIR$/src/gchess/GChess.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/moves/Surrender.java" />
         <option value="$PROJECT_DIR$/src/gchess/boardgame/BoardGamePlatform.java" />
         <option value="$PROJECT_DIR$/src/gchess/boardgame/BoardGame.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/ChessGame.java" />
+        <option value="$PROJECT_DIR$/src/gui/PlayerVsAiPanel.java" />
+        <option value="$PROJECT_DIR$/src/gui/PlayerVsPlayerPanel.java" />
         <option value="$PROJECT_DIR$/src/gui/GamePanel.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
   </component>
@@ -248,65 +258,6 @@
               <item name="GilBenBasat" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="GilBenBasat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GilBenBasat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gchess" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GilBenBasat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GilBenBasat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gchess" type="462c0819:PsiDirectoryNode" />
-              <item name="boardgame" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GilBenBasat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GilBenBasat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gchess" type="462c0819:PsiDirectoryNode" />
-              <item name="chess" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GilBenBasat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GilBenBasat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gchess" type="462c0819:PsiDirectoryNode" />
-              <item name="chess" type="462c0819:PsiDirectoryNode" />
-              <item name="moves" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GilBenBasat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GilBenBasat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gchess" type="462c0819:PsiDirectoryNode" />
-              <item name="chess" type="462c0819:PsiDirectoryNode" />
-              <item name="players" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GilBenBasat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GilBenBasat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gchess" type="462c0819:PsiDirectoryNode" />
-              <item name="chess" type="462c0819:PsiDirectoryNode" />
-              <item name="players" type="462c0819:PsiDirectoryNode" />
-              <item name="evaluators" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GilBenBasat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GilBenBasat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gchess" type="462c0819:PsiDirectoryNode" />
-              <item name="chess" type="462c0819:PsiDirectoryNode" />
-              <item name="states" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GilBenBasat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GilBenBasat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gui" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -319,6 +270,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.statistic.project.settings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -350,7 +302,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.MainFrame">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
@@ -462,9 +414,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.MainFrame" />
         <item itemvalue="Application.GamePanel" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.DefaultUI" />
         <item itemvalue="Application.ToDelete" />
       </list>
@@ -485,7 +437,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -495,13 +446,13 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.29385474" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29385474" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32980973" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18765281" />
-      <window_info anchor="bottom" id="Statistic" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18765281" />
+      <window_info anchor="bottom" id="Statistic" weight="0.32960895" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32960895" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -535,7 +486,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="56" />
+      <option name="time" value="58" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -829,13 +780,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="67" column="22" selection-start-line="67" selection-start-column="22" selection-end-line="67" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/BoardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="411">
@@ -941,16 +885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/PlayerVsAiPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="66" column="16" lean-forward="true" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="88" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/MainFrame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -1047,24 +981,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/GamePanel.java">
+    <entry file="file://$PROJECT_DIR$/src/gui/PlayerVsAiPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-558">
-          <caret line="52" column="62" selection-start-line="52" selection-start-column="62" selection-end-line="52" selection-end-column="62" />
+        <state relative-caret-position="-932">
+          <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8009#8010#0" expanded="true" />
-            <element signature="e#8059#8060#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/PlayerVsPlayerPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+        <state relative-caret-position="445">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/GamePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="243" column="39" selection-start-line="243" selection-start-column="39" selection-end-line="243" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8633#8634#0" expanded="true" />
+            <element signature="e#8683#8684#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
+          <folding>
+            <element signature="e#636#637#0" expanded="true" />
+            <element signature="e#672#673#0" expanded="true" />
+            <element signature="e#682#683#0" expanded="true" />
+            <element signature="e#734#735#0" expanded="true" />
           </folding>
         </state>
       </provider>
