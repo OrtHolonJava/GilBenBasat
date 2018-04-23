@@ -26,6 +26,7 @@ import static gchess.chess.utils.ChessGameUtils.enemyOf;
 
 public class GChess implements GChessAPI{
     private ChessGamePlatform _chessGamePlatform;
+    private Thread _gameThread;
 
     @Override
     public void startNewPlayerVsPlayerGame(GameMode mode, UI ui) throws UnknownGameMode {
@@ -34,7 +35,8 @@ public class GChess implements GChessAPI{
         players.add(new HumanPlayer("Black", BLACK, ui));
 
         _chessGamePlatform = new ChessGamePlatform(getGameFromMode(mode), players);
-        new Thread(_chessGamePlatform).start();
+        _gameThread = new Thread(_chessGamePlatform);
+        _gameThread.start();
     }
 
     @Override

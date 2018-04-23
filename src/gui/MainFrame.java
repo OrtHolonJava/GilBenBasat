@@ -1,15 +1,11 @@
 package gui;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.basic.DefaultMenuLayout;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class MainFrame extends JFrame {
     public JPanel cards;
+    public GamePanel gamePanel;
     public MainFrame() {
         cards = new JPanel();
         JPanel mainPanel = new MainPanel();
@@ -18,7 +14,8 @@ public class MainFrame extends JFrame {
         cards.add(mainPanel, "0");
         cards.add(new PlayerVsPlayerPanel(), "1");
         cards.add(new PlayerVsAiPanel(), "2");
-        cards.add(new GamePanel(), "3");
+        gamePanel = new GamePanel();
+        cards.add(gamePanel, "3");
 
         add(cards);
 

@@ -21,6 +21,7 @@ import static gchess.chess.utils.ChessGameUtils.enemyOf;
 
 public class ChessGame extends BoardGame<ChessBoard> {
     protected Alliance _currentAllianceTurn;
+
     public ChessGame() {
         super(new ChessBoard());
         initBoard();
@@ -127,14 +128,14 @@ public class ChessGame extends BoardGame<ChessBoard> {
             Piece candidatePiece = getPiece(candidatePos);
             if (candidatePiece instanceof Pawn && candidatePiece.getAlliance() == alliance) {
                 Position candidateDestination = Positions.transform(enemyPos,
-                        alliance == Alliance.WHITE ? NORTH : SOUTH);
+                    alliance == Alliance.WHITE ? NORTH : SOUTH);
                 moves.add(new EnPassantMove(candidatePos, candidateDestination, enemyPos));
             }
             candidatePos = Positions.transform(enemyPos, WEST);
             candidatePiece = getPiece(candidatePos);
             if (candidatePiece instanceof Pawn && candidatePiece.getAlliance() == alliance) {
                 Position candidateDestination = Positions.transform(enemyPos,
-                        alliance == Alliance.WHITE ? NORTH : SOUTH);
+                    alliance == Alliance.WHITE ? NORTH : SOUTH);
                 moves.add(new EnPassantMove(candidatePos, candidateDestination, enemyPos));
             }
         }
@@ -153,7 +154,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
                     if (rook instanceof Rook && ((Rook) rook).getMoveCount() == 0) {
                         if (isPositionSafe(TILE_F8, alliance) && isPositionSafe(TILE_G8, alliance)) {
                             moves.add(new CastleMove(BLACK_KING_START_POSITION, TILE_G8,
-                                    BLACK_EAST_ROOK_START_POSITION, TILE_F8));
+                                BLACK_EAST_ROOK_START_POSITION, TILE_F8));
                         }
                     }
                 }
@@ -163,7 +164,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
                     if (rook instanceof Rook && ((Rook) rook).getMoveCount() == 0) {
                         if (isPositionSafe(TILE_C8, alliance) && isPositionSafe(TILE_D8, alliance)) {
                             moves.add(new CastleMove(BLACK_KING_START_POSITION, TILE_C8,
-                                    BLACK_WEST_ROOK_START_POSITION, TILE_D8));
+                                BLACK_WEST_ROOK_START_POSITION, TILE_D8));
                         }
                     }
                 }
@@ -178,7 +179,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
                     if (rook instanceof Rook && ((Rook) rook).getMoveCount() == 0) {
                         if (isPositionSafe(TILE_F1, alliance) && isPositionSafe(TILE_G1, alliance)) {
                             moves.add(new CastleMove(WHITE_KING_START_POSITION, TILE_G1,
-                                    WHITE_EAST_ROOK_START_POSITION, TILE_F1));
+                                WHITE_EAST_ROOK_START_POSITION, TILE_F1));
                         }
                     }
                 }
@@ -188,7 +189,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
                     if (rook instanceof Rook && ((Rook) rook).getMoveCount() == 0) {
                         if (isPositionSafe(TILE_C1, alliance) && isPositionSafe(TILE_D1, alliance)) {
                             moves.add(new CastleMove(WHITE_KING_START_POSITION, TILE_C1,
-                                    WHITE_WEST_ROOK_START_POSITION, TILE_D1));
+                                WHITE_WEST_ROOK_START_POSITION, TILE_D1));
                         }
                     }
                 }
@@ -367,27 +368,28 @@ public class ChessGame extends BoardGame<ChessBoard> {
         return !isPositionSafe(kingPos, defenceAlliance);
     }
 
-    protected  GameEnded getEndGameState() {
+    protected GameEnded getEndGameState() {
         Alliance defenceAlliance = getCurrentTurnAlliance();
         Position kingPos = getKingPosition(defenceAlliance);
-        if (getPossibleMoves().isEmpty()) {
-            if (isUnderCheck()) {
-                return new CheckMate(kingPos, enemyOf(defenceAlliance));
-            }
-            else {
-                return new Tie();
-            }
-        }
-        else {
+        if (getSpecialEndGameState() != null)
             return getSpecialEndGameState();
+        else {
+            if (getPossibleMoves().isEmpty()) {
+                if (isUnderCheck()) {
+                    return new CheckMate(kingPos, enemyOf(defenceAlliance));
+                } else {
+                    return new Tie();
+                }
+            }
         }
+        return null;
     }
 
     protected GameEnded getSpecialEndGameState() {
         return null;
     }
     
-    protected Alliance getCurrentTurnAlliance() {
+    public Alliance getCurrentTurnAlliance() {
         return _currentAllianceTurn;
     }
 

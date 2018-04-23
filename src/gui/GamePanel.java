@@ -1,21 +1,23 @@
 package gui;
 
 import gchess.GChess;
-import gchess.boardgame.Alliance;
-import gchess.boardgame.Move;
-import gchess.boardgame.Position;
+import gchess.boardgame.*;
+import gchess.boardgame.states.GameEnded;
 import gchess.chess.ChessGame;
 import gchess.chess.enums.Piece;
 import gchess.chess.players.UI;
+import gchess.chess.states.*;
 import gchess.enums.GameMode;
 import gchess.exceptions.GChessThrowable;
 
 import javax.swing.*;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
+
+import static gchess.chess.utils.ChessGameUtils.enemyOf;
 
 /**
  * Created by Gil on 30/10/2017.
@@ -44,11 +46,11 @@ public class GamePanel extends JPanel implements UI {
         label.setVerticalAlignment(SwingConstants.BOTTOM);
         label.setFont(new Font("Tahoma", Font.PLAIN, 26));
 
-        JLabel label_1 = new JLabel("10:00 +3s");
+        /*JLabel label_1 = new JLabel("10:00 +3s");
         panel_3.add(label_1);
         label_1.setVerticalAlignment(SwingConstants.BOTTOM);
         label_1.setHorizontalAlignment(SwingConstants.CENTER);
-        label_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        label_1.setFont(new Font("Tahoma", Font.PLAIN, 18));*/
 
         JPanel panel_4 = new JPanel();
         panel.add(panel_4, BorderLayout.SOUTH);
@@ -58,42 +60,33 @@ public class GamePanel extends JPanel implements UI {
         panel_4.add(lblBlack);
         lblBlack.setFont(new Font("Tahoma", Font.PLAIN, 26));
 
-        JLabel lbls = new JLabel("10:00 +3s");
+        /*JLabel lbls = new JLabel("10:00 +3s");
         panel_4.add(lbls);
         lbls.setHorizontalAlignment(SwingConstants.CENTER);
-        lbls.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lbls.setFont(new Font("Tahoma", Font.PLAIN, 18));*/
 
         JPanel panel_1 = new JPanel();
         add(panel_1, BorderLayout.SOUTH);
 
-        JButton btnSurrender = new JButton("Surrender");
+        /*JButton btnSurrender = new JButton("Surrender");
         btnSurrender.setHorizontalAlignment(SwingConstants.LEFT);
+        btnSurrender.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _nextMove = new SurrenderMove();
+                synchronized (lock) {
+                    lock.notify();
+                }
+            }
+        });
         panel_1.add(btnSurrender);
 
-        JButton btnOfferADraw = new JButton("Offer a Draw");
-        panel_1.add(btnOfferADraw);
+        /*JButton btnOfferADraw = new JButton("Offer a Draw");
+        panel_1.add(btnOfferADraw);*/
         _board = new BoardPanel();
         JPanel panel1 = new JPanel();
         panel1.add(_board);
         add(panel1);
-
-        addAncestorListener ( new AncestorListener()
-        {
-            public void ancestorAdded ( AncestorEvent event )
-            {
-                start();
-            }
-
-            public void ancestorRemoved ( AncestorEvent event )
-            {
-                // Component removed from container
-            }
-
-            public void ancestorMoved ( AncestorEvent event )
-            {
-                // Component container moved
-            }
-        } );
     }
 
     private GameMode strToGameMode(String mode) {
@@ -150,14 +143,44 @@ public class GamePanel extends JPanel implements UI {
     public void onPlayerMadeMove(ChessGame game) {
         _currentGame = game;
         _board.setTiles(toTileList(game.getBoardRepresentation()));
-
     }
 
     @Override
     public void onGameEnded(ChessGame game) {
         _currentGame = game;
         _board.setTiles(toTileList(game.getBoardRepresentation()));
+        GameEnded state = (GameEnded)game.getGameState();
+        showEndGameMessage(state);
+    }
 
+    private void showEndGameMessage(GameEnded state) {
+        String message;
+        if (state instanceof CheckMate) {
+            message = ((CheckMate) state).getWinningAlliance().toString() + " won with Checkmate!";
+        } else if (state instanceof KingIsDead) {
+            message = ((KingIsDead) state).getWinningAlliance().toString() + " won after bombing his opponent king!";
+        } else if (state instanceof KingIsOnTheHill) {
+            message = ((KingIsOnTheHill) state).getWinningAlliance().toString() + " won after getting the king up the hill!";
+        } else if (state instanceof ThreeCheckWin) {
+            message = ((ThreeCheckWin) state).getWinningAlliance().toString() + " won after causing opponents king a heart attack!";
+        } else {
+            message = "Game ended with a Tie!";
+        }
+        Object[] options = {"OK"};
+        int n = JOptionPane.showOptionDialog(this,
+            message,"Game ended",
+            JOptionPane.PLAIN_MESSAGE,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]);
+        _currentGame = null;
+        _selectedPosition = null;
+        _nextMove = null;
+        _possibleDestinations = null;
+        JPanel cards = ((MainFrame) SwingUtilities.getWindowAncestor(this)).cards;
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.show(cards, "0");
     }
 
     public void onTileClicked(int id) {

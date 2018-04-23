@@ -64,6 +64,7 @@ public class PlayerVsAiPanel extends JPanel {
                 JPanel cards = ((MainFrame) SwingUtilities.getWindowAncestor(_this)).cards;
                 CardLayout cl = (CardLayout) cards.getLayout();
                 cl.show(cards, "3");
+                ((MainFrame) SwingUtilities.getWindowAncestor(_this)).gamePanel.start();
             }
         });
         add(btnNewButton);

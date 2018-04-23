@@ -1,5 +1,7 @@
 package gchess.boardgame;
 
+import gchess.boardgame.states.GameEnded;
+
 import java.util.Collection;
 import java.util.LinkedList;
 

@@ -5,6 +5,8 @@ import gchess.boardgame.states.InGame;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static gchess.chess.utils.ChessGameUtils.enemyOf;
+
 public abstract class BoardGamePlatform<T extends BoardGame, U extends Player> implements Runnable {
     protected Collection<U> _players;
     protected T _game;
