@@ -79,9 +79,6 @@ public class DefaultUI implements UI {
             else if (args[0].equals("HELP")) {
                 handleHelpRequest();
             }
-            else if (args[0].equals("UNDO")) {
-                handleUndoRequest();
-            }
             else {
                 System.out.println("Error: unknown syntax.");
             }
@@ -106,13 +103,6 @@ public class DefaultUI implements UI {
         System.out.println("Current board:");
         printBoard(_game.getBoardRepresentation());
         System.out.println("Error: impossible move.");
-    }
-    private void handleUndoRequest() {
-        Move undoMove = new UndoMove();
-        _game.undoMove();
-        System.out.println("Current board:");
-        printBoard(_game.getBoardRepresentation());
-        _returnedMove = undoMove;
     }
     private void handleShowPieceMovesRequest(String pos)
     {

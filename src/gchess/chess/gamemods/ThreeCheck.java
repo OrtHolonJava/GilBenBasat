@@ -24,7 +24,7 @@ public class ThreeCheck extends ChessGame {
     @Override
     public BoardGame<ChessBoard> getCopy() {
         ThreeCheck game = new ThreeCheck();
-        game._currentAllianceTurn = _currentAllianceTurn;
+        game._currentAlliance = _currentAlliance;
         game._board = (ChessBoard) _board.getCopy();
         game._allianceCheckCount = (HashMap<Alliance, Integer>) _allianceCheckCount.clone();
         return game;

@@ -3,8 +3,8 @@ package gchess.boardgame;
 /**
  * <h1>Player</h1>
  * A player is the entity that communicates with the BoardGamePlatform.
- * What it does is to give a move every time the game platform ask from it whether it is a human or a computer making
- * the move.
+ * What it does is to give a move every time the game platform ask from it.
+ * A player is either a human or a computer.
  * @param <T> The game that the player is compatible playing.
  *
  * @see BoardGamePlatform

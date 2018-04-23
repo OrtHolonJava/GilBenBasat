@@ -25,7 +25,7 @@ public class Atomic extends ChessGame{
     @Override
     public BoardGame<ChessBoard> getCopy() {
         Atomic game = new Atomic();
-        game._currentAllianceTurn = _currentAllianceTurn;
+        game._currentAlliance = _currentAlliance;
         game._board = (ChessBoard) _board.getCopy();
         return game;
     }

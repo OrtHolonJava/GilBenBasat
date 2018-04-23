@@ -19,7 +19,7 @@ public class KingOfTheHill extends ChessGame {
     @Override
     public BoardGame<ChessBoard> getCopy() {
         KingOfTheHill game = new KingOfTheHill();
-        game._currentAllianceTurn = _currentAllianceTurn;
+        game._currentAlliance = _currentAlliance;
         game._board = (ChessBoard) _board.getCopy();
         return game;
     }

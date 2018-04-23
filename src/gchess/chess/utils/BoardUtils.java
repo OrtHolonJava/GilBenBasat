@@ -2,6 +2,12 @@ package gchess.chess.utils;
 
 import gchess.boardgame.Alliance;
 import gchess.boardgame.Position;
+import gchess.chess.ChessPiece;
+import gchess.chess.enums.Piece;
+import gchess.chess.pieces.*;
+
+import static gchess.boardgame.Alliance.WHITE;
+import static gchess.chess.enums.Piece.*;
 
 public class BoardUtils {
     public static final Position BLACK_KING_START_POSITION = new Position(4, 0);
@@ -40,6 +46,23 @@ public class BoardUtils {
         if (alliance == Alliance.WHITE && pos.getY() == 6)
             return true;
         return alliance == Alliance.BLACK && pos.getY() == 1;
+    }
+
+    public static Piece pieceToEnum(ChessPiece piece) {
+        if (piece instanceof Pawn) {
+            return piece.getAlliance() == WHITE ? WHITE_PAWN : BLACK_PAWN;
+        } else if (piece instanceof Knight) {
+            return piece.getAlliance() == WHITE ? WHITE_KNIGHT : BLACK_KNIGHT;
+        } else if (piece instanceof Bishop) {
+            return piece.getAlliance() == WHITE ? WHITE_BISHOP : BLACK_BISHOP;
+        } else if (piece instanceof Rook) {
+            return piece.getAlliance() == WHITE ? WHITE_ROOK : BLACK_ROOK;
+        } else if (piece instanceof Queen) {
+            return piece.getAlliance() == WHITE ? WHITE_QUEEN : BLACK_QUEEN;
+        } else if (piece instanceof King) {
+            return piece.getAlliance() == WHITE ? WHITE_KING : BLACK_KING;
+        }
+        return null;
     }
 
 }

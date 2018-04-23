@@ -1,33 +1,47 @@
 package gchess.chess;
 
 import gchess.boardgame.*;
-import gchess.chess.enums.Direction;
-import gchess.chess.states.Check;
-import gchess.chess.states.CheckMate;
 import gchess.boardgame.states.GameEnded;
 import gchess.boardgame.states.InGame;
-import gchess.chess.states.Tie;
+import gchess.chess.enums.Direction;
 import gchess.chess.moves.*;
 import gchess.chess.pieces.*;
+import gchess.chess.states.Check;
+import gchess.chess.states.CheckMate;
+import gchess.chess.states.Tie;
 import gchess.chess.utils.Positions;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static gchess.boardgame.Alliance.*;
+import static gchess.boardgame.Alliance.BLACK;
+import static gchess.boardgame.Alliance.WHITE;
 import static gchess.chess.enums.Direction.*;
-import static gchess.chess.utils.BoardUtils.* ;
+import static gchess.chess.utils.BoardUtils.*;
 import static gchess.chess.utils.ChessGameUtils.enemyOf;
 
+/**
+ * <h1>Chess Game</h1>
+ * This class is the classic chess game and is the core of any implementation of any chess mode. Examples for modes
+ * you can create on top of it: Chess960, Atomic, King-Of-The-Hill and so much more.
+ *
+ * @author  Gil Ben Basat
+ * @version 1.0
+ * @since   2018-04-23
+ */
 public class ChessGame extends BoardGame<ChessBoard> {
-    protected Alliance _currentAllianceTurn;
+    protected Alliance _currentAlliance;
 
     public ChessGame() {
         super(new ChessBoard());
         initBoard();
-        _currentAllianceTurn = WHITE;
+        _currentAlliance = WHITE;
     }
 
+    /**
+     * This function returns a collection of the possible (legal) moves of the current alliance.
+     * @return Collection of possible moves.
+     */
     @Override
     public Collection<Move> getPossibleMoves() {
         ArrayList<Move> moves = new ArrayList<>(75);
@@ -60,7 +74,13 @@ public class ChessGame extends BoardGame<ChessBoard> {
         return moves;
     }
 
-    public Collection<Move> getRegularMoves(Alliance alliance) {
+    /**
+     * This function returns all the regular possible moves of the alliance given as parameter, namely: simple movement,
+     * normal attack, pawn double tile move and pawn promotion.
+     * @param alliance the alliance we want to get the possible moves of (usually the current turn alliance).
+     * @return Collection of possible regular moves.
+     */
+    private Collection<Move> getRegularMoves(Alliance alliance) {
         ArrayList<Move> moves = new ArrayList<>(75);
         for (Position piecePos : _board.getOccupiedPositions()) {
             ChessPiece piece = getPiece(piecePos);
@@ -118,8 +138,12 @@ public class ChessGame extends BoardGame<ChessBoard> {
         return moves;
     }
 
-    // TODO: make this more generic
-    public Collection<Move> getEnPassentMoves(Alliance alliance) {
+    /**
+     * This function returns all the possible pawn's en-passent moves of the alliance given as a parameter.
+     * @param alliance the alliance we want to get the possible moves of (usually the current turn alliance).
+     * @return Collection of possible en-passent moves.
+     */
+    private Collection<Move> getEnPassentMoves(Alliance alliance) {
         ArrayList<Move> moves = new ArrayList<>(2);
         Move lastMove = _board.getLastMove();
         if (lastMove instanceof PawnDoubleTileMove) {
@@ -142,8 +166,12 @@ public class ChessGame extends BoardGame<ChessBoard> {
         return moves;
     }
 
-    // TODO: HAVE TO make this more generic
-    protected Collection<Move> getCastleMoves(Alliance alliance) {
+    /**
+     * This function returns all the possible ccastle moves of the alliance given as a parameter.
+     * @param alliance the alliance we want to get the possible moves of (usually the current turn alliance).
+     * @return Collection of possible castle moves.
+     */
+    private Collection<Move> getCastleMoves(Alliance alliance) {
         ArrayList<Move> moves = new ArrayList<>(2);
         if (alliance == BLACK) {
             Piece king = getPiece(BLACK_KING_START_POSITION);
@@ -200,6 +228,11 @@ public class ChessGame extends BoardGame<ChessBoard> {
         return moves;
     }
 
+    /**
+     * This function returns the king position of the requested alliance.
+     * @param alliance The alliance of the wanted king.
+     * @return The position of the wanted king.
+     */
     protected Position getKingPosition(Alliance alliance) {
         Position kingPos = null;
         for (Position position : _board.getOccupiedPositions()) {
@@ -211,7 +244,14 @@ public class ChessGame extends BoardGame<ChessBoard> {
         return kingPos;
     }
 
-    protected boolean isPositionSafe(Position pos, Alliance defenceAlliance) {
+    /**
+     * This function checks if a position is safe for a certain alliance.
+     * Safe position is a position which is not a destination of any of the enemy attack moves.
+     * @param pos The position to be checked.
+     * @param defenceAlliance The alliance which his enemy is the one the position need to be safe from.
+     * @return true if the position is safe, false otherwise.
+     */
+    private boolean isPositionSafe(Position pos, Alliance defenceAlliance) {
         for (Move move : getRegularMoves(enemyOf(defenceAlliance))) {
             if (move instanceof AttackMove && move.getDestination().equals(pos)) {
                 return false;
@@ -220,6 +260,10 @@ public class ChessGame extends BoardGame<ChessBoard> {
         return true;
     }
 
+    /**
+     * This function returns the current game state. e.g: Check, Tie etc.
+     * @return The current game state.
+     */
     @Override
     public GameState getGameState() {
         Alliance defenceAlliance = getCurrentTurnAlliance();
@@ -237,6 +281,10 @@ public class ChessGame extends BoardGame<ChessBoard> {
         return state;
     }
 
+    /**
+     * This function executes the move that's given as a parameter and makes changes in the board as needed.
+     * @param move The move that needs to be executed.
+     */
     @Override
     public void makeMove(Move move) {
         onMakeMoveStarted(move);
@@ -263,10 +311,14 @@ public class ChessGame extends BoardGame<ChessBoard> {
         }
         _board.movePiece(move.getSource(), move.getDestination());
         _board.getMoveHistory().push(move);
-        _currentAllianceTurn = _currentAllianceTurn == WHITE ? BLACK : WHITE;
+        _currentAlliance = _currentAlliance == WHITE ? BLACK : WHITE;
         onMakeMoveFinished(move);
     }
 
+    /**
+     * This function return to the state of the game before the last move. Undo twice to go back two states before and
+     * so on.
+     */
     @Override
     public void undoMove() {
         Move move = _board.getMoveHistory().pop();
@@ -294,36 +346,61 @@ public class ChessGame extends BoardGame<ChessBoard> {
         } else if (move instanceof PromotionMove) {
             _board.setPiece(move.getSource(), new Pawn(movingPiece.getAlliance()));
         }
-        _currentAllianceTurn = _currentAllianceTurn == WHITE ? BLACK : WHITE;
+        _currentAlliance = _currentAlliance == WHITE ? BLACK : WHITE;
         onUndoMoveFinished(move);
     }
 
+    /**
+     * This function returns a copy of the current game so that any modifications on the copy won't affect the current
+     * game.
+     * @return A copy of the game.
+     */
     @Override
     public BoardGame<ChessBoard> getCopy() {
         ChessGame game = new ChessGame();
-        game._currentAllianceTurn = _currentAllianceTurn;
+        game._currentAlliance = _currentAlliance;
         game._board = (ChessBoard) _board.getCopy();
         return game;
     }
 
+    /**
+     * This function returns all the positions that are occupied by pieces.
+     * @return Collection of positions of occupied positions.
+     */
     public Collection<Position> getOccupiedPositions() {
         return _board.getOccupiedPositions();
     }
 
+    /**
+     * This function returns the piece that seats in the position received as parameter.
+     * @param pos The position of the piece we want to get.
+     * @return The piece that was requested.
+     */
     public ChessPiece getPiece(Position pos) {
         return _board.getPiece(pos);
     }
 
+    /**
+     * This function returns a nice and easy representation of the chess board using N x M matrix and enums of pieces.
+     * @return N x M matrix of pieces enums.
+     */
     public gchess.chess.enums.Piece[][] getBoardRepresentation() {
         return _board.getBoardRepresentation();
     }
 
-    /* Modular Functions Section */
-
+    /**
+     * This function determines whether the king needs to be safe or not.
+     * Safe means that no enemy piece can attack the king in the current state.
+     * <b>Note:</b> This function is there to be overrated by game-modes that don't need the king to be safe.
+     * @return true if the king needs to be safe, false otherwise.
+     */
     protected boolean isKingHasToBeSafe() {
         return true;
     }
 
+    /**
+     * This function initiate the board with pieces for when the game starts.
+     */
     protected void initBoard() {
         _board.setPiece(new Position(0, 0), new Rook(BLACK));
         _board.setPiece(new Position(1, 0), new Knight(BLACK));
@@ -362,13 +439,21 @@ public class ChessGame extends BoardGame<ChessBoard> {
         _board.setPiece(new Position(7, 6), new Pawn(WHITE));
     }
 
+    /**
+     * This function checks if the king of current alliance is under check.
+     * @return
+     */
     protected boolean isUnderCheck() {
         Alliance defenceAlliance = getCurrentTurnAlliance();
         Position kingPos = getKingPosition(defenceAlliance);
         return !isPositionSafe(kingPos, defenceAlliance);
     }
 
-    protected GameEnded getEndGameState() {
+    /**
+     * This function returns the current end-game state. If there isn't any, it returns null.
+     * @return Current end-game state.
+     */
+    private GameEnded getEndGameState() {
         Alliance defenceAlliance = getCurrentTurnAlliance();
         Position kingPos = getKingPosition(defenceAlliance);
         if (getSpecialEndGameState() != null)
@@ -385,19 +470,52 @@ public class ChessGame extends BoardGame<ChessBoard> {
         return null;
     }
 
+    /**
+     * This function returns the current special end game state, if there isn't any it returns null.
+     * <b>Note:</b> This function is meant to be overrated by other game-modes that have special end-game states.
+     * @return Current special end-game state
+     */
     protected GameEnded getSpecialEndGameState() {
         return null;
     }
-    
-    public Alliance getCurrentTurnAlliance() {
-        return _currentAllianceTurn;
+
+    /**
+     * This function returns the current turn alliance.
+     * @return Alliance of current turn.
+     */
+    protected Alliance getCurrentTurnAlliance() {
+        return _currentAlliance;
     }
 
-    protected void onMakeMoveStarted(Move move){}
+    /**
+     * This function is called before a move is executed.
+     * <b>Note:</b> This function is meant to be overrated by other game-modes that needs this kind of additional functionality.
+     * @param move The move that is going to be executed after this call.
+     */
+    private void onMakeMoveStarted(Move move) {
+    }
 
-    protected void onMakeMoveFinished(Move move){}
+    /**
+     * This function is called after a move has finished executing.
+     * <b>Note:</b> This function is meant to be overrated by other game-modes that needs this kind of additional functionality.
+     * @param move The move that has finished executing before this call.
+     */
+    protected void onMakeMoveFinished(Move move) {
+    }
 
-    protected void onUndoMoveStarted(Move move){}
+    /**
+     * This function is called before an undo operation is executed.
+     * <b>Note:</b> This function is meant to be overrated by other game-modes that needs this kind of additional functionality.
+     * @param move The move that is going to be canceled after this call.
+     */
+    protected void onUndoMoveStarted(Move move) {
+    }
 
-    protected void onUndoMoveFinished(Move move){}
+    /**
+     * This function is called after an undo operation has finished executing.
+     * <b>Note:</b> This function is meant to be overrated by other game-modes that needs this kind of additional functionality.
+     * @param move The move that was canceled as a result of the undo operation.
+     */
+    private void onUndoMoveFinished(Move move) {
+    }
 }

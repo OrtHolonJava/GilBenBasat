@@ -5,73 +5,85 @@ import gchess.boardgame.Position;
 import gchess.chess.ChessBoard;
 import gchess.chess.ChessGame;
 import gchess.chess.pieces.*;
+import javafx.geometry.Pos;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
-import static gchess.boardgame.Alliance.*;
+import static gchess.boardgame.Alliance.BLACK;
+import static gchess.boardgame.Alliance.WHITE;
 
 public class Chess960 extends ChessGame {
 
     @Override
     public BoardGame<ChessBoard> getCopy() {
         Chess960 game = new Chess960();
-        game._currentAllianceTurn = _currentAllianceTurn;
+        game._currentAlliance = _currentAlliance;
         game._board = (ChessBoard) _board.getCopy();
         return game;
     }
 
     @Override
     protected void initBoard() {
-        int[] homeRankFreePos = {0, 1, 2, 3, 4, 5, 6, 7}; // indicates which indexes of home rank are free. at start all are free.
+        ArrayList<Integer> homeRankFreeXIndex  = new ArrayList<>(); // indicates which indexes of home rank are free
+        homeRankFreeXIndex.add(0);
+        homeRankFreeXIndex.add(1);
+        homeRankFreeXIndex.add(2);
+        homeRankFreeXIndex.add(3);
+        homeRankFreeXIndex.add(4);
+        homeRankFreeXIndex.add(5);
+        homeRankFreeXIndex.add(6);
+        homeRankFreeXIndex.add(7);
+
         Random rnd = new Random();
         int index;
+        Integer x;
         // selects position for the first bishop
-        index = rnd.nextInt(4) * 2; // even-tile bishop
-        _board.setPiece(new Position(index, 0), new Bishop(BLACK));
-        _board.setPiece(new Position(index, 7), new Bishop(WHITE));
-        homeRankFreePos[index] = homeRankFreePos[7];
+        x = rnd.nextInt(4) * 2; // even-tile bishop
+        _board.setPiece(new Position(x, 0), new Bishop(BLACK));
+        _board.setPiece(new Position(x, 7), new Bishop(WHITE));
+        homeRankFreeXIndex.remove(x);
+
         // selects position for the second bishop
-        index = rnd.nextInt(4) * 2 + 1;
-        _board.setPiece(new Position(index, 0), new Bishop(BLACK));
-        _board.setPiece(new Position(index, 7), new Bishop(WHITE));
-        homeRankFreePos[index] = homeRankFreePos[6];
+        x = rnd.nextInt(4) * 2 + 1; // odd-tile bishop
+        _board.setPiece(new Position(x, 0), new Bishop(BLACK));
+        _board.setPiece(new Position(x, 7), new Bishop(WHITE));
+        homeRankFreeXIndex.remove(x);
 
         // select position for queen
-        index = rnd.nextInt(6);
-        _board.setPiece(new Position(homeRankFreePos[index], 0), new Queen(BLACK));
-        _board.setPiece(new Position(homeRankFreePos[index], 7), new Queen(WHITE));
-        homeRankFreePos[index] = homeRankFreePos[5];
+        index = rnd.nextInt(6); // there is only 6 indexes left
+        x = homeRankFreeXIndex.get(index);
+        _board.setPiece(new Position(x, 0), new Queen(BLACK));
+        _board.setPiece(new Position(x, 7), new Queen(WHITE));
+        homeRankFreeXIndex.remove(x);
 
         // select position for the first knight
-        index = rnd.nextInt(5);
-        _board.setPiece(new Position(homeRankFreePos[index], 0), new Knight(BLACK));
-        _board.setPiece(new Position(homeRankFreePos[index], 7), new Knight(WHITE));
-        homeRankFreePos[index] = homeRankFreePos[4];
+        index = rnd.nextInt(5); // there is only 5 indexes left
+        x = homeRankFreeXIndex.get(index);
+        _board.setPiece(new Position(x, 0), new Knight(BLACK));
+        _board.setPiece(new Position(x, 7), new Knight(WHITE));
+        homeRankFreeXIndex.remove(x);
 
         // select position for the second knight
-        index = rnd.nextInt(4);
-        _board.setPiece(new Position(homeRankFreePos[index], 0), new Knight(BLACK));
-        _board.setPiece(new Position(homeRankFreePos[index], 7), new Knight(WHITE));
-        homeRankFreePos[index] = homeRankFreePos[3];
+        index = rnd.nextInt(4); // there is only 4 indexes left
+        x = homeRankFreeXIndex.get(index);
+        _board.setPiece(new Position(x, 0), new Knight(BLACK));
+        _board.setPiece(new Position(x, 7), new Knight(WHITE));
+        homeRankFreeXIndex.remove(x);
 
-        // calculate min, mid and max so that the king would be in the middle of the two rooks.
-        int[] indexes = new int[3];
-        indexes[0] = homeRankFreePos[0];
-        indexes[1] = homeRankFreePos[1];
-        indexes[2] = homeRankFreePos[2];
-        Arrays.sort(indexes);
+        // calculate sort the remaining indexes so that the king would be in the middle of the two rooks.
+        Collections.sort(homeRankFreeXIndex);
 
-        // set rooks position position
-        _board.setPiece(new Position(indexes[0], 0), new Rook(BLACK));
-        _board.setPiece(new Position(indexes[0], 7), new Rook(WHITE));
+        // set left rooks position
+        _board.setPiece(new Position(homeRankFreeXIndex.get(0), 0), new Rook(BLACK));
+        _board.setPiece(new Position(homeRankFreeXIndex.get(0), 7), new Rook(WHITE));
 
-        _board.setPiece(new Position(indexes[2], 0), new Rook(BLACK));
-        _board.setPiece(new Position(indexes[2], 7), new Rook(WHITE));
+        // set right rooks position
+        _board.setPiece(new Position(homeRankFreeXIndex.get(2), 0), new Rook(BLACK));
+        _board.setPiece(new Position(homeRankFreeXIndex.get(2), 7), new Rook(WHITE));
 
         // set king position
-        _board.setPiece(new Position(indexes[1], 0), new King(BLACK));
-        _board.setPiece(new Position(indexes[1], 7), new King(WHITE));
+        _board.setPiece(new Position(homeRankFreeXIndex.get(1), 0), new King(BLACK));
+        _board.setPiece(new Position(homeRankFreeXIndex.get(1), 7), new King(WHITE));
 
 
         // set pawn positions
