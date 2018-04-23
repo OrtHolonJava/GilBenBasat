@@ -20,13 +20,13 @@ import gchess.exceptions.UnknownGameMode;
 
 import java.util.ArrayList;
 
-import static gchess.boardgame.Alliance.BLACK;
-import static gchess.boardgame.Alliance.WHITE;
+import static gchess.boardgame.Alliance.*;
 import static gchess.chess.utils.ChessGameUtils.enemyOf;
 
-public class GChess implements GChessAPI{
+public class GChess implements GChessAPI {
+    private static final int MIN_AI_DIFFICULTY = 1;
+    private static final int MAX_AI_DIFFICULTY = 10;
     private ChessGamePlatform _chessGamePlatform;
-    private Thread _gameThread;
 
     @Override
     public void startNewPlayerVsPlayerGame(GameMode mode, UI ui) throws UnknownGameMode {
@@ -35,8 +35,8 @@ public class GChess implements GChessAPI{
         players.add(new HumanPlayer("Black", BLACK, ui));
 
         _chessGamePlatform = new ChessGamePlatform(getGameFromMode(mode), players);
-        _gameThread = new Thread(_chessGamePlatform);
-        _gameThread.start();
+        Thread gameThread = new Thread(_chessGamePlatform);
+        gameThread.start();
     }
 
     @Override
@@ -47,12 +47,8 @@ public class GChess implements GChessAPI{
             getEvaluatorFromDifficulty(aiDifficulty)));
 
         _chessGamePlatform = new ChessGamePlatform(getGameFromMode(mode), players);
-        new Thread(_chessGamePlatform).start();
-    }
-
-    @Override
-    public void endGame() {
-        _chessGamePlatform = null;
+        Thread gameThread = new Thread(_chessGamePlatform);
+        gameThread.start();
     }
 
     private ChessGame getGameFromMode(GameMode mode) throws UnknownGameMode {
@@ -73,7 +69,7 @@ public class GChess implements GChessAPI{
     }
 
     private EvaluateMethodType getEvaluatorFromDifficulty(int difficulty) throws UnknownDifficulty {
-        if (difficulty > 10 || difficulty < 1) {
+        if (difficulty > MAX_AI_DIFFICULTY || difficulty < MIN_AI_DIFFICULTY) {
             throw new UnknownDifficulty("Unknown difficulty: " + difficulty);
         }
         switch (difficulty / 2) {
@@ -94,7 +90,7 @@ public class GChess implements GChessAPI{
     }
 
     private int getDepthFromDifficulty(int difficulty) throws UnknownDifficulty {
-        if (difficulty > 10 || difficulty < 1) {
+        if (difficulty > MAX_AI_DIFFICULTY || difficulty < MIN_AI_DIFFICULTY) {
             throw new UnknownDifficulty("Unknown difficulty: " + difficulty);
         }
         return (difficulty + 1) / 2;

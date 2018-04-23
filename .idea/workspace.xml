@@ -11,20 +11,9 @@
   <component name="ChangeListManager">
     <list default="true" id="878a0e52-4fa0-4962-9657-71351af71265" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/boardgame/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/boardgame/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/boardgame/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/boardgame/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/ChessGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/ChessGamePlatform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/ChessGamePlatform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/ChessPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/ChessPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/ChessPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/ChessTimer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/gamemods/Atomic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/gamemods/Atomic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/gamemods/Chess960.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/gamemods/Chess960.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/gamemods/KingOfTheHill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/gamemods/KingOfTheHill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/gamemods/ThreeCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/gamemods/ThreeCheck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/players/DefaultUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/players/DefaultUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gchess/chess/utils/BoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/chess/utils/BoardUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gchess/GChess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/GChess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gchess/GChessAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gchess/GChessAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gchess/GChessListener.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -35,42 +24,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ChessBoard.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gchess/chess/ChessBoard.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="94" column="7" lean-forward="true" selection-start-line="91" selection-start-column="4" selection-end-line="94" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChessGame.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gchess/chess/ChessGame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="508" column="24" lean-forward="true" selection-start-line="508" selection-start-column="24" selection-end-line="508" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#14654#14655#0" expanded="true" />
-                <element signature="e#14706#14707#0" expanded="true" />
-                <element signature="e#14754#14755#0" expanded="true" />
-                <element signature="e#14797#14798#0" expanded="true" />
-                <element signature="e#14865#14866#0" expanded="true" />
-                <element signature="e#14919#14920#0" expanded="true" />
-                <element signature="e#16756#16757#0" expanded="true" />
-                <element signature="e#16783#16784#0" expanded="true" />
-                <element signature="e#20077#20078#0" expanded="true" />
-                <element signature="e#20104#20105#0" expanded="true" />
-                <element signature="e#20675#20676#0" expanded="true" />
-                <element signature="e#20714#20715#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ChessGamePlatform.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gchess/chess/ChessGamePlatform.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -113,11 +66,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Chess960.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Chess960.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gchess/chess/gamemods/Chess960.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
+            <state relative-caret-position="1343">
               <caret line="79" column="20" selection-start-line="79" selection-start-column="20" selection-end-line="79" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GChess.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/gchess/GChess.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="85" column="19" lean-forward="true" selection-start-line="85" selection-start-column="19" selection-end-line="85" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AIPlayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gchess/chess/players/AIPlayer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GChessAPI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gchess/GChessAPI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -139,18 +128,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
               <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BoardGamePlatform.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gchess/boardgame/BoardGamePlatform.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="3" lean-forward="true" selection-start-line="7" selection-end-line="22" selection-end-column="3" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -190,7 +167,6 @@
         <option value="$PROJECT_DIR$/src/gchess/chess/pieces/Pawn.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/pieces/Queen.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/pieces/Rook.java" />
-        <option value="$PROJECT_DIR$/src/gchess/GChessAPI.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/players/UI.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/players/HumanPlayer.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/gamemods/ThreeCheck.java" />
@@ -204,7 +180,6 @@
         <option value="$PROJECT_DIR$/src/gchess/chess/moves/AttackAndPromoteMove.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/players/AIPlayer.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/states/Surrender.java" />
-        <option value="$PROJECT_DIR$/src/gchess/GChess.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/moves/Surrender.java" />
         <option value="$PROJECT_DIR$/src/gui/PlayerVsAiPanel.java" />
         <option value="$PROJECT_DIR$/src/gui/PlayerVsPlayerPanel.java" />
@@ -232,6 +207,8 @@
         <option value="$PROJECT_DIR$/src/gchess/chess/ChessPlayer.java" />
         <option value="$PROJECT_DIR$/src/gchess/boardgame/Player.java" />
         <option value="$PROJECT_DIR$/src/gchess/chess/gamemods/Chess960.java" />
+        <option value="$PROJECT_DIR$/src/gchess/GChessAPI.java" />
+        <option value="$PROJECT_DIR$/src/gchess/GChess.java" />
       </list>
     </option>
   </component>
@@ -551,24 +528,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/gchess/chess/players/HumanPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="32" lean-forward="true" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#536#537#0" expanded="true" />
-            <element signature="e#552#553#0" expanded="true" />
-            <element signature="e#641#642#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#531#532#0" expanded="true" />
-            <element signature="e#570#571#0" expanded="true" />
-            <element signature="e#744#745#0" expanded="true" />
-            <element signature="e#762#763#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gchess/chess/players/UI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -704,16 +663,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gchess/chess/players/AIPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="80" selection-start-line="80" selection-end-line="80" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gchess/chess/gamemods/KingOfTheHill.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -728,28 +677,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="13" column="5" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="13" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gchess/GChessAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gchess/GChess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="57" column="33" lean-forward="true" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2060#2061#0" expanded="true" />
-            <element signature="e#2100#2101#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1053,8 +980,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gchess/chess/gamemods/Chess960.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
+        <state relative-caret-position="1343">
           <caret line="79" column="20" selection-start-line="79" selection-start-column="20" selection-end-line="79" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gchess/GChessListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gchess/GChessAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gchess/chess/players/AIPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gchess/GChess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="85" column="19" lean-forward="true" selection-start-line="85" selection-start-column="19" selection-end-line="85" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
