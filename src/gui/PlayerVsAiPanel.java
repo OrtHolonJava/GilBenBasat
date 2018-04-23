@@ -4,16 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.prefs.Preferences;
 
-public class PlayerVsPlayerPanel extends JPanel implements PropertyChangeListener {
+public class PlayerVsAiPanel extends JPanel {
+    private PlayerVsAiPanel _this;
+    private JSlider aiDifficulty;
+    JComboBox alliance;
+    private JComboBox gameMode;
     private JTextField time;
     private JTextField addTime;
-    private JComboBox gameMode;
-    private PlayerVsPlayerPanel _this;
-    public PlayerVsPlayerPanel() {
+    public PlayerVsAiPanel() {
         _this = this;
         setLayout(null);
         Label label = new Label("Game mode:");
@@ -34,12 +34,12 @@ public class PlayerVsPlayerPanel extends JPanel implements PropertyChangeListene
         time = new JTextField();
         time.setText("10");
         time.setBounds(392, 194, 22, 20);
-        add(time);
         time.setColumns(2);
+        add(time);
 
-        JLabel lblM = new JLabel("m");
-        lblM.setBounds(416, 200, 13, 14);
-        add(lblM);
+        JLabel m = new JLabel("m");
+        m.setBounds(416, 200, 13, 14);
+        add(m);
 
         JLabel label_2 = new JLabel("+");
         label_2.setBounds(432, 195, 13, 14);
@@ -55,13 +55,8 @@ public class PlayerVsPlayerPanel extends JPanel implements PropertyChangeListene
         lblS.setBounds(472, 201, 13, 14);
         add(lblS);
 
-        Checkbox checkbox = new Checkbox("Flip board (after every move)");
-        checkbox.setState(true);
-        checkbox.setBounds(286, 220, 172, 19);
-        add(checkbox);
-
         JButton btnNewButton = new JButton("Start Game");
-        btnNewButton.setBounds(332, 272, 109, 23);
+        btnNewButton.setBounds(333, 315, 109, 23);
         btnNewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,20 +68,43 @@ public class PlayerVsPlayerPanel extends JPanel implements PropertyChangeListene
         });
         add(btnNewButton);
 
-        JLabel lblPlayerVsPlayer = new JLabel("Player vs Player");
+        JLabel lblPlayerVsPlayer = new JLabel("Player vs Computer");
         lblPlayerVsPlayer.setFont(new Font("Tahoma", Font.PLAIN, 46));
-        lblPlayerVsPlayer.setBounds(230, 80, 326, 60);
+        lblPlayerVsPlayer.setBounds(190, 81, 417, 60);
         add(lblPlayerVsPlayer);
+
+        Label label_3 = new Label("Your Alliance:");
+        label_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        label_3.setBounds(283, 226, 107, 19);
+        add(label_3);
+
+        alliance = new JComboBox();
+        alliance.setModel(new DefaultComboBoxModel(new String[] {"White", "Black"}));
+        alliance.setBounds(392, 226, 113, 20);
+        add(alliance);
+
+        aiDifficulty = new JSlider();
+        aiDifficulty.setSnapToTicks(true);
+        aiDifficulty.setPaintTicks(true);
+        aiDifficulty.setPaintLabels(true);
+        aiDifficulty.setValue(5);
+        aiDifficulty.setMajorTickSpacing(1);
+        aiDifficulty.setMinimum(1);
+        aiDifficulty.setMaximum(10);
+        aiDifficulty.setBounds(392, 259, 113, 45);
+        add(aiDifficulty);
+
+        Label label_4 = new Label("AI difficulty:");
+        label_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        label_4.setBounds(283, 270, 107, 19);
+        add(label_4);
     }
 
     private void savePrefs() {
         Preferences prefs = Preferences.userNodeForPackage(this.getClass());
         prefs.put("gameMode", ((String)gameMode.getSelectedItem()).toUpperCase());
-        prefs.putBoolean("isAiGame", false);
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
+        prefs.putBoolean("isWhite", ((String)alliance.getSelectedItem()).equals("White"));
+        prefs.putInt("aiDifficulty", aiDifficulty.getValue());
+        prefs.putBoolean("isAiGame", true);
     }
 }

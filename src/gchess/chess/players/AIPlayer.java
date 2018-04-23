@@ -22,8 +22,7 @@ public class AIPlayer extends ChessPlayer {
 
     private int minimax(ChessGame game, int depth, int alpha, int beta, boolean isMaximizing) { // minimax with alpha-beta puring
         if (depth == 0) {
-            int boardEvaluation = _evaluationFunc.evaluate(game, _alliance);
-            return isMaximizing ? boardEvaluation : -boardEvaluation;
+            return _evaluationFunc.evaluate(game, _alliance);
         }
         int temp = isMaximizing ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         for (Move move : game.getPossibleMoves()) {
@@ -44,7 +43,6 @@ public class AIPlayer extends ChessPlayer {
             if (alpha >= beta) {
                 break; // stops the search for this tree because it's redundant
             }
-
         }
         return temp;
     }
@@ -64,8 +62,9 @@ public class AIPlayer extends ChessPlayer {
         int maxValue = Integer.MIN_VALUE;
         Move bestMove = null;
         Collection<Move> possibleMoves = game.getPossibleMoves();
-        Collections.shuffle((List<?>) possibleMoves);
-        for (Move move : possibleMoves) {
+        List<Move> shuffeledMoves = (List<Move>) possibleMoves;
+        Collections.shuffle(shuffeledMoves);
+        for (Move move : shuffeledMoves) {
             game.makeMove(move);
             int value = minimax(game, _depth - 1, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
             game.undoMove();

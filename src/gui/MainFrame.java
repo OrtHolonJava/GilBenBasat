@@ -17,7 +17,8 @@ public class MainFrame extends JFrame {
         cards.setLayout(new CardLayout());
         cards.add(mainPanel, "0");
         cards.add(new PlayerVsPlayerPanel(), "1");
-        cards.add(new GamePanel(), "2");
+        cards.add(new PlayerVsAiPanel(), "2");
+        cards.add(new GamePanel(), "3");
 
         add(cards);
 

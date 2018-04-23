@@ -51,6 +51,14 @@ public class MainPanel extends JPanel {
         pvaButton.setBorder(BorderFactory.createEmptyBorder());
         pvaButton.setContentAreaFilled(false);
         pvaButton.setSize(210, 210);
+        pvaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel cards = ((MainFrame) SwingUtilities.getWindowAncestor(_this)).cards;
+                CardLayout cl = (CardLayout) cards.getLayout();
+                cl.show(cards, "2");
+            }
+        });
         bottomPanel.add(pvaButton);
 
         FlowLayout flowLayout = new FlowLayout();

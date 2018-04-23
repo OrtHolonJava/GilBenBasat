@@ -5,7 +5,7 @@ import gchess.boardgame.states.InGame;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public abstract class BoardGamePlatform<T extends BoardGame, U extends Player>{
+public abstract class BoardGamePlatform<T extends BoardGame, U extends Player> implements Runnable {
     protected Collection<U> _players;
     protected T _game;
     protected int _playerTurnIndex;
@@ -14,13 +14,21 @@ public abstract class BoardGamePlatform<T extends BoardGame, U extends Player>{
         _playerTurnIndex = 0;
     }
 
-    public void start() {
+    public void run() {
         GameState state = _game.getGameState();
+        // Game started; tell to all players.
+        for (U player : _players) {
+            player.onGameStarted(_game.getCopy());
+        }
         while (state instanceof InGame) {
             U currentPlayer = ((ArrayList<U>)_players).get(_playerTurnIndex % _players.size());
             Move nextMove = currentPlayer.getNextMove(_game.getCopy());
             if (_game.getPossibleMoves().contains(nextMove)) {
                 _game.makeMove(nextMove);
+                // Player made move; tell to all players.
+                for (U player : _players) {
+                    player.onPlayerMadeMove(_game.getCopy());
+                }
                 _playerTurnIndex++;
                 state = _game.getGameState();
             }

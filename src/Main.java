@@ -65,6 +65,6 @@ public class Main {
                 cgp = new ChessGamePlatform(new ChessGame(), players);
                 break;
         }
-        cgp.start();
+        new Thread(cgp).start();
     }
 }

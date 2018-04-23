@@ -95,11 +95,8 @@ public class ChessGame extends BoardGame<ChessBoard> {
                 /* Add Atack Moves */
                 if (piece instanceof Pawn) {
                     Position candidate = Positions.transform(currentPos, EAST);
-                    try {
-                        if (_board.isOccupied(candidate) && getPiece(candidate).getAlliance() != alliance) {
-                            moves.add(new AttackMove(piecePos, candidate));
-                        }
-                    } catch (Exception ignore) {
+                    if (_board.isOccupied(candidate) && getPiece(candidate).getAlliance() != alliance) {
+                        moves.add(new AttackMove(piecePos, candidate));
                     }
                     candidate = Positions.transform(currentPos, WEST);
                     if (_board.isOccupied(candidate) && getPiece(candidate).getAlliance() != alliance) {
@@ -228,7 +225,7 @@ public class ChessGame extends BoardGame<ChessBoard> {
         Position kingPos = getKingPosition(defenceAlliance);
 
         GameState state = getEndGameState();
-        // if its not an end game state- check if theres a check.
+        // if its not an end game state- check if there's a check.
         if (state == null) {
             if (isUnderCheck()) {
                 return new Check(kingPos);

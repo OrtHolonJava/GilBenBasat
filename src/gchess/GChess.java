@@ -34,7 +34,7 @@ public class GChess implements GChessAPI{
         players.add(new HumanPlayer("Black", BLACK, ui));
 
         _chessGamePlatform = new ChessGamePlatform(getGameFromMode(mode), players);
-        _chessGamePlatform.start();
+        new Thread(_chessGamePlatform).start();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class GChess implements GChessAPI{
             getEvaluatorFromDifficulty(aiDifficulty)));
 
         _chessGamePlatform = new ChessGamePlatform(getGameFromMode(mode), players);
-        _chessGamePlatform.start();
+        new Thread(_chessGamePlatform).start();
     }
 
     @Override
