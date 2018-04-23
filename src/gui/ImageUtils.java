@@ -21,7 +21,7 @@ public class ImageUtils {
     public ImageUtils() {
         _hashMap = new HashMap<>();
         try {
-            BufferedImage bi = ImageIO.read(new File("src/gui/drawables/pieces.png"));
+            BufferedImage bi = ImageIO.read(getClass().getResource("/gui/drawables/pieces.png"));
             for (Piece piece : List.of(BLACK_QUEEN, BLACK_KING, BLACK_BISHOP, BLACK_KNIGHT, BLACK_ROOK, BLACK_PAWN,
                 WHITE_QUEEN, WHITE_KING, WHITE_BISHOP, WHITE_KNIGHT, WHITE_ROOK, WHITE_PAWN)) {
                 _hashMap.put(piece, fromPieceToImage(bi, piece));

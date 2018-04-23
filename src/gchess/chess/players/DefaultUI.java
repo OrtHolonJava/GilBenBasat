@@ -2,7 +2,6 @@ package gchess.chess.players;
 
 import gchess.boardgame.Move;
 import gchess.boardgame.Position;
-import gchess.boardgame.UndoMove;
 import gchess.chess.ChessGame;
 import gchess.chess.enums.Piece;
 import gchess.chess.moves.AttackMove;

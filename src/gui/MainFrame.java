@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         BufferedImage icon = null;
         try {
-            icon = ImageIO.read(new File("src/gui/drawables/chess-game-512.png"));
+            icon = ImageIO.read(getClass().getResource("/gui/drawables/chess-game-512.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

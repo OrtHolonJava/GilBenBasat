@@ -1,7 +1,18 @@
 package gchess.boardgame;
 
+/**
+ * <h1>Position</h1>
+ * A position is defined by two integers: x and y.
+ * A position is immutable- once it was created it cannot be changed.
+ *
+ * @author  Gil Ben Basat
+ * @version 1.0
+ * @since   2018-04-23
+ */
 public class Position {
-    private int _x, _y;
+    // This is the largest x or y that a position can have for it to function correctly with hashCode().
+    private final int MAX_INDEX = 256;
+    private final int _x, _y;
     public Position(int x, int y) {
         _x = x;
         _y = y;
@@ -30,6 +41,6 @@ public class Position {
 
     @Override
     public int hashCode() {
-        return _x * 256 + _y;
+        return _x * MAX_INDEX + _y;
     }
 }

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="GilBenBasat:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GilBenBasat_jar</output-path>
+    <root id="archive" name="GilBenBasat.jar">
+      <element id="module-output" name="GilBenBasat" />
+    </root>
+  </artifact>
+</component>

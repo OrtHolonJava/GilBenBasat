@@ -1,4 +1,7 @@
 package gchess.boardgame;
 
-public class GameState {
+/**
+ * This class describes a state of a certain game.
+ */
+public abstract class GameState {
 }
