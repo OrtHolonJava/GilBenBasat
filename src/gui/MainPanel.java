@@ -23,7 +23,7 @@ public class MainPanel extends JPanel {
         JPanel bottomPanel = new JPanel();
         BufferedImage pvpIcon = null;
         try {
-            pvpIcon = ImageIO.read(new File("D:\\Downloads\\player_vs_player.jpg"));
+            pvpIcon = ImageIO.read(new File("src/gui/drawables/player_vs_player.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,7 +43,7 @@ public class MainPanel extends JPanel {
 
         BufferedImage pvaIcon = null;
         try {
-            pvaIcon = ImageIO.read(new File("D:\\Downloads\\player_vs_pc.jpg"));
+            pvaIcon = ImageIO.read(new File("src/gui/drawables/player_vs_pc.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
