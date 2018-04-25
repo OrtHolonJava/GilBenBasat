@@ -10,6 +10,9 @@ import java.util.List;
 import static gchess.boardgame.Alliance.WHITE;
 import static gchess.chess.enums.Direction.*;
 
+/**
+ * This is a chess piece of type Pawn.
+ */
 public class Pawn extends ChessPiece {
     public Pawn(Alliance alliance) {
         super(alliance);

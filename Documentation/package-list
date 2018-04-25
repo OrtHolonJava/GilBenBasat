@@ -1,0 +1,17 @@
+unnamed package
+gchess
+gchess.boardgame
+gchess.boardgame.states
+gchess.chess
+gchess.chess.enums
+gchess.chess.exceptions
+gchess.chess.gamemods
+gchess.chess.moves
+gchess.chess.pieces
+gchess.chess.players
+gchess.chess.players.evaluators
+gchess.chess.states
+gchess.chess.utils
+gchess.enums
+gchess.exceptions
+gui

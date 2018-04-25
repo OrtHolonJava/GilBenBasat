@@ -10,6 +10,9 @@ import java.util.List;
 import static gchess.boardgame.Alliance.WHITE;
 import static gchess.chess.enums.Direction.*;
 
+/**
+ * This is a chess piece of type Knight.
+ */
 public class Knight extends ChessPiece {
     private final static List<Direction> MOVEMENT_DIRECTIONS = List.of(KNIGHT_EEN, KNIGHT_EES, KNIGHT_NNE, KNIGHT_NNW,
             KNIGHT_SSE, KNIGHT_SSW, KNIGHT_WWN, KNIGHT_WWS);

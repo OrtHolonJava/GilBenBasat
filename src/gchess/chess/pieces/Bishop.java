@@ -10,6 +10,9 @@ import java.util.List;
 import static gchess.boardgame.Alliance.WHITE;
 import static gchess.chess.enums.Direction.*;
 
+/**
+ * This is a chess piece of type Bishop.
+ */
 public class Bishop extends ChessPiece {
     private final static List<Direction> MOVEMENT_DIRECTIONS = List.of(NORTH_EAST, NORTH_WEST,
             SOUTH_EAST, SOUTH_WEST);

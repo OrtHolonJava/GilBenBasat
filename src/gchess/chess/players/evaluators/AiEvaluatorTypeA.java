@@ -7,6 +7,9 @@ import gchess.chess.ChessPiece;
 import gchess.chess.pieces.*;
 import gchess.chess.players.EvaluateMethodType;
 
+/**
+ * This class is an chess evaluator of type A: the easiest type.
+ */
 public class AiEvaluatorTypeA implements EvaluateMethodType {
     @Override
     public int evaluate(ChessGame game, Alliance aiAlliance) {

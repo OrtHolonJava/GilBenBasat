@@ -4,6 +4,9 @@ import gchess.boardgame.Alliance;
 import gchess.boardgame.states.GameEnded;
 import gchess.boardgame.Position;
 
+/**
+ * A game state of type: Check-Mate.
+ */
 public class CheckMate extends GameEnded {
     private final Position _checkedKingPos;
     private final Alliance _winningAlliance;

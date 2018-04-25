@@ -5,6 +5,9 @@ import gchess.boardgame.Move;
 import gchess.chess.ChessGame;
 import gchess.chess.ChessPlayer;
 
+/**
+ * This class simulates a human player by getting it's next move from a ui.
+ */
 public class HumanPlayer extends ChessPlayer {
     private UI _ui;
     public HumanPlayer(String name, Alliance alliance) {
