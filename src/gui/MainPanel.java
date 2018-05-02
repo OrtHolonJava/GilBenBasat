@@ -62,12 +62,22 @@ public class MainPanel extends JPanel {
         bottomPanel.add(pvaButton);
 
         FlowLayout flowLayout = new FlowLayout();
-        flowLayout.setHgap(40);
+        flowLayout.setHgap(45);
         bottomPanel.setLayout(flowLayout);
 
         // Adding panels
-        add(topPanel);
+        add(new MyPanel());
         add(bottomPanel);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+    }
+    private class MyPanel extends JPanel{
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            try {
+                g.drawImage(ImageIO.read(getClass().getResource("/gui/drawables/menu_header.png")), 0, 0, getWidth(), getHeight(), this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -37,6 +37,18 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+    class ImagePanel extends JComponent {
+        private Image image;
+        public ImagePanel(Image image) {
+            this.image = image;
+        }
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(image, 0, 0, this);
+        }
+    }
+
     public static void main(String[] args) {
         MainFrame mainFrame = new MainFrame();
     }

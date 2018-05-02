@@ -14,7 +14,7 @@ import static gchess.chess.utils.BoardUtils.pieceToEnum;
 /**
  * <h1>Chess Board</h1>
  * This class helps implementing moves of pieces in a chess game.
- * <b>Note:</b> The board is not responsible for any move executions, it only saves data about the board state.
+ * <b>Note:</b> The board is not responsible for any move executions (it doesn't know the rules of chess), it only saves data about the board state.
  *
  * @author Gil Ben Basat
  * @version 1.0
